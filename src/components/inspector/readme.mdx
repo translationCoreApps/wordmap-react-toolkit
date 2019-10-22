@@ -3,8 +3,16 @@ name: Playground
 ---
 
 import { Playground } from 'docz';
+import Inspector from './Inspector';
+import TranslationText from './TranslationText';
+import AlignmentMemory from './AlignmentMemory';
+import Alignment from './Alignment';
 
 # wordMAP Inspector
 <Playground>
-    adsf
+    <Inspector
+        source="Guten Tag Ihnen"
+        target="Good day to you"
+        memory={[["tag", "day"]]}
+    />
 </Playground>
