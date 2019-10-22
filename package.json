@@ -8,9 +8,9 @@
   "scripts": {
     "start": "docz dev",
     "docz:build": "docz build",
-    "docz:netlify": "npx ./scripts/docz-netlify.js",
     "predeploy": "yarn docz:build",
-    "prepublishOnly": "rm -fr ./dist & babel ./src --out-dir ./dist -s inline"
+    "build": "babel ./src --out-dir ./dist -s inline",
+    "prepublishOnly": "rm -fr ./dist & yarn build"
   },
   "browserslist": [
     ">0.2%",
