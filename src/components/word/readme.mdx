@@ -1,0 +1,46 @@
+---
+name: Word
+---
+
+import { Playground, Props } from 'docz';
+import {Word} from './Word';
+
+# Word
+
+A `Word` represents a single word within a sentence.
+
+<Props of={Word}/>
+
+## Basic usage
+
+Basic word element.
+
+<Playground>
+    <Word style={{ maxWidth: 100}}>
+        Hello
+    </Word>
+</Playground>
+
+Words can indicate their occurrence within a sentence.
+
+<Playground>
+    <Word occurrence={1} occurrences={2} style={{ maxWidth: 100}}>
+        Hello
+    </Word>
+</Playground>
+
+Disabled word.
+
+<Playground>
+    <Word disabled style={{ maxWidth: 100}}>
+        Hello
+    </Word>
+</Playground>
+
+Suggested word.
+
+<Playground>
+    <Word suggested style={{ maxWidth: 100}}>
+        Hello
+    </Word>
+</Playground>

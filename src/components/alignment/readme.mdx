@@ -1,0 +1,86 @@
+---
+name: Alignment
+---
+
+import { Playground, Props } from 'docz';
+import {Alignment} from './Alignment';
+import {Word} from '../word';
+
+# Alignment
+
+An `Alignment` is a mapping between one or more words in a source and target sentence.
+
+<Props of={Alignment}/>
+
+## Basic usage
+
+An empty alignment.
+
+<Playground>
+    <Alignment  style={{maxWidth: 300}} />
+</Playground>
+
+An unaligned source word.
+
+<Playground>
+    <Alignment style={{maxWidth: 300}}
+        sourceWords={[<Word>Hello</Word>]}
+        targetWords={[]}
+    />
+</Playground>
+
+A single alignment.
+
+<Playground>
+    <Alignment style={{maxWidth: 300}}
+        sourceWords={[<Word>Hello</Word>]}
+        targetWords={[<Word>Halo</Word>]}
+    />
+</Playground>
+
+A complex alignment.
+
+<Playground>
+    <Alignment style={{maxWidth: 300}}
+        sourceWords={[<Word>Hello</Word>, <Word>World</Word>]}
+        targetWords={[<Word>Some-one-word-equivalent</Word>]}
+    />
+</Playground>
+
+## Drop Behavior
+
+Activated drop zones.
+
+<Playground>
+    <Alignment style={{maxWidth: 300}}
+        dropTop
+        dropBottom
+        sourceWords={[<Word>Hello</Word>, <Word>World</Word>]}
+        targetWords={[<Word>Some-one-word-equivalent</Word>]}
+    />
+</Playground>
+
+Hovered drop zones.
+
+<Playground>
+    <Alignment style={{maxWidth: 300}}
+        dropTop
+        dropBottom
+        hoverTop
+        hoverBottom
+        sourceWords={[<Word>Hello</Word>, <Word>World</Word>]}
+        targetWords={[<Word>Some-one-word-equivalent</Word>]}
+    />
+</Playground>
+
+## Suggestion Behavior
+
+An alignment with a suggestion.
+
+<Playground>
+    <Alignment style={{maxWidth: 300}}
+        suggested
+        sourceWords={[<Word>Hello</Word>, <Word>World</Word>]}
+        targetWords={[<Word suggested>Some-one-word-equivalent</Word>]}
+    />
+</Playground>

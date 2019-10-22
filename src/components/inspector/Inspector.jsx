@@ -1,66 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import WordMap from "wordmap";
 import Lexer from "wordmap-lexer";
-import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
-
-function PredictionViewer({prediction}) {
-    return (
-        <Paper>
-            {
-                prediction.source.getTokens().map(t => {
-                    return (
-                        <Chip
-                            key={t.key}
-                            label={t.text}
-                        />
-                    );
-                })
-            }
-            {
-                prediction.target.getTokens().map(t => {
-                    return (
-                        <Chip
-                            key={t.key}
-                            label={t.text}
-                            color="primary"
-                        />
-                    );
-                })
-            }
-            {prediction.confidence.toFixed(2)}
-        </Paper>
-    );
-}
-
-function SuggestionViewer({source, target, suggestion}) {
-    const sourceTokens = useTokens(source);
-    const targetTokens = useTokens(target);
-
-    if(suggestion) {
-        return (
-            <div>
-                {
-                    suggestion.getPredictions().map(p =>
-                        <PredictionViewer prediction={p}/>
-                    )
-                }
-            </div>
-        );
-    } else {
-        return (
-            <div>
-                Loading...
-            </div>
-        );
-    }
-}
+import SuggestionViewer from './SuggestionViewer';
 
 export default function Inspector({source, target, memory}) {
     const suggestion = useWordMAP(source, target, memory);
 
     return (
-        <SuggestionViewer source={source} target={target} suggestion={suggestion}/>
+        <SuggestionViewer suggestion={suggestion}/>
     );
 }
 
