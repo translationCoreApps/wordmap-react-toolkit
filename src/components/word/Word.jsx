@@ -9,7 +9,7 @@ function makeBorderKey({direction}) {
 }
 
 function makeSuggestionStyles(props) {
-    if(props.suggested) {
+    if (props.suggested) {
         return {
             [makeBorderKey(props)]: '5px solid #1b7729',
         };
@@ -18,7 +18,7 @@ function makeSuggestionStyles(props) {
 }
 
 function makeDisabledStyles(props) {
-    if(props.disabled) {
+    if (props.disabled) {
         return {
             [makeBorderKey(props)]: '5px solid #868686',
             opacity: 0.3,
@@ -30,7 +30,7 @@ function makeDisabledStyles(props) {
 }
 
 function makeSelectedStyles({selected}) {
-    if(selected) {
+    if (selected) {
         return {
             backgroundColor: '#44C6FF'
         };
@@ -60,8 +60,14 @@ const useStyles = makeStyles({
     word: props => ({
         width: 'max-content',
         flexGrow: 2,
+        color: props.selected ? 'white' : 'inherit',
         cursor: (!props.disabled && typeof props.onClick === 'function') ? 'pointer' : 'inherit'
-    })
+    }),
+    content: {
+        flex: 1,
+        display: 'flex',
+        alignItems: 'center'
+    }
 });
 
 /**
@@ -71,7 +77,7 @@ const useStyles = makeStyles({
  * @constructor
  */
 export function Word(props) {
-    const {children, occurrence, occurrences, suggested} = props;
+    const {children, occurrence, occurrences, suggested, selected} = props;
     const classes = useStyles(props);
 
     /**
@@ -102,12 +108,12 @@ export function Word(props) {
     return (
         <div style={{flex: 1}}>
             <div className={classes.root}>
-                <span style={{flex: 1, display: 'flex'}}>
+                <span className={classes.content}>
                   <span onClick={handleClick} className={classes.word}>
                     {children}
                   </span>
                     {suggested ? (
-                        <Controls onCancel={handleCancelClick}/>
+                        <Controls style={selected ? {color: 'white'} : null} onCancel={handleCancelClick}/>
                     ) : null}
 
                 </span>

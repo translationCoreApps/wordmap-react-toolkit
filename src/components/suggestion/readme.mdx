@@ -1,0 +1,22 @@
+---
+name: Suggestion
+---
+
+import { Playground, Props } from 'docz';
+import {Suggestion} from './Suggestion';
+import {SuggestionProvider} from '../../providers/suggestion-provider';
+
+# Suggestion
+
+<Props of={Suggestion}/>
+
+## Basic usage
+
+Suggest an alignment between `Guten Tag Ihnen` and `Good day to you`. 
+
+<Playground>
+    <SuggestionProvider source="Guten Tag Ihnen"
+                        target="Good day to you">
+        <Suggestion/>
+    </SuggestionProvider>
+</Playground>

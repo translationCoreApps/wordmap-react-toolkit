@@ -10,8 +10,10 @@ const useStyles = makeStyles({
         marginLeft: 5,
         width: 20,
         height: 20,
-        verticalAlign: 'middle',
-        color: '#646464'
+        // verticalAlign: 'middle',
+        color: '#646464',
+        // lineHeight: 'inherit',
+        ...props.style
     })
 });
 
@@ -22,9 +24,9 @@ const useStyles = makeStyles({
  * @return {*}
  * @constructor
  */
-export function Controls({onCancel}) {
+export function Controls(props) {
     const [hover, setHover] = useState(false);
-    const classes = useStyles({hover});
+    const classes = useStyles(props);
 
     function handleOver() {
         setHover(true);
@@ -35,7 +37,7 @@ export function Controls({onCancel}) {
     }
 
     return (
-        <CancelIcon onClick={onCancel}
+        <CancelIcon onClick={props.onCancel}
                     onMouseOver={handleOver}
                     onMouseOut={handleOut}
                     className={classes.icon}/>
@@ -44,5 +46,9 @@ export function Controls({onCancel}) {
 }
 
 Controls.propTypes = {
-    onCancel: PropTypes.func
+    onCancel: PropTypes.func,
+    style: PropTypes.object
+};
+Controls.defaultProps = {
+    style: {}
 };

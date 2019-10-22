@@ -1,0 +1,21 @@
+---
+name: SuggestionProvider
+---
+
+import { Playground, Props } from 'docz';
+import {SuggestionProvider} from './SuggestionProvider';
+import {Suggestion} from '../../components/suggestion';
+
+# SuggestionProvider
+
+This component provides a `suggestion` prop to all of it's children.
+
+<Props of={SuggestionProvider}/>
+
+## Basic usage
+
+```jsx
+<SuggestionProvider>
+    <MyComponent/>
+</SuggestionProvider>
+```

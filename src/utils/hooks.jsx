@@ -1,17 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import WordMap from "wordmap";
+import {useEffect, useState} from "react";
 import Lexer from "wordmap-lexer";
-import SuggestionViewer from './SuggestionViewer';
+import WordMap from "wordmap";
 
-export default function Inspector({source, target, memory}) {
-    const suggestion = useWordMAP(source, target, memory);
-
-    return (
-        <SuggestionViewer suggestion={suggestion}/>
-    );
-}
-
-function useTokens(text) {
+/**
+ * Returns tokenized version of the text
+ * @param text
+ * @returns {Array}
+ */
+export function useTokens(text) {
     const [tokens, setTokens] = useState([]);
     useEffect(() => {
         setTokens(Lexer.tokenize(text));
@@ -19,11 +15,15 @@ function useTokens(text) {
     return tokens;
 }
 
-function useWordMAP(source, target, memory) {
+/**
+ * Returns a wordMAP instance
+ * @param memory - alignment memory to use
+ * @returns {{}}
+ */
+export function useWordMAP(memory) {
     const [map, setMap] = useState(null);
-    const [suggestion, setSuggestion] = useState(null);
 
-    // create wordmap
+    // create wordMAP
     useEffect(() => {
         setMap(new WordMap());
     }, []);
@@ -34,6 +34,20 @@ function useWordMAP(source, target, memory) {
             memory.map(alignment => map.appendAlignmentMemoryString(alignment[0], alignment[1]));
         }
     }, [map, memory]);
+
+    return map;
+}
+
+/**
+ * Returns a suggested alignment between two sentences.
+ * @param source
+ * @param target
+ * @param memory
+ * @returns {{}}
+ */
+export function useSuggestion(source, target, memory) {
+    const map = useWordMAP(memory);
+    const [suggestion, setSuggestion] = useState(null);
 
     // predict
     useEffect(() => {
