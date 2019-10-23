@@ -1,0 +1,26 @@
+---
+name: Playground
+---
+
+import { Playground, Props } from 'docz';
+import {Playground as WordmapPlayground} from './Playground';
+
+# Playground
+
+This is a sandbox to try out wordMAP on some real input.
+We've pre-populated some sentences to run predictions against.
+
+Here are some directions:
+
+* Adding more alignment memory will improve the predictions.
+* You can remove memory by clicking the `x` icon.
+* Edit the sentences and the predictions will be rebuilt on the fly.
+
+Try it out!
+
+<Playground>
+    <WordmapPlayground
+        sourceText="περὶ δὲ τῶν νεκρῶν, ὅτι ἐγείρονται, οὐκ ἀνέγνωτε ἐν τῇ βίβλῳ Μωϋσέως ἐπὶ τοῦ βάτου, πῶς εἶπεν αὐτῷ ὁ Θεὸς λέγων, ἐγὼ ὁ Θεὸς Ἀβραὰμ, καὶ ὁ Θεὸς Ἰσαὰκ, καὶ ὁ Θεὸς Ἰακώβ?"
+        targetText="But concerning the dead that are raised, have you not read in the book of Moses, in the account about the bush, how God spoke to him, saying, ‘I am the God of Abraham and the God of Isaac and the God of Jacob’?"
+        memory={[["Θεὸς", "the God"]]} />
+</Playground>

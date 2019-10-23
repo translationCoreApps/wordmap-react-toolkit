@@ -20,7 +20,7 @@ export function useTokens(text) {
  * @param memory - alignment memory to use
  * @returns {{}}
  */
-export function useWordMAP(memory) {
+export function useWordMAP(memory=[]) {
     const [map, setMap] = useState(null);
 
     // create wordMAP
@@ -31,6 +31,7 @@ export function useWordMAP(memory) {
     // update memory
     useEffect(() => {
         if(map !== null) {
+            map.clearAlignmentMemory();
             memory.map(alignment => map.appendAlignmentMemoryString(alignment[0], alignment[1]));
         }
     }, [map, memory]);
@@ -45,18 +46,17 @@ export function useWordMAP(memory) {
  * @param memory
  * @returns {{}}
  */
-export function useSuggestion(source, target, memory) {
+export function useSuggestion(source, target, memory=[]) {
     const map = useWordMAP(memory);
     const [suggestion, setSuggestion] = useState(null);
 
     // predict
     useEffect(() => {
         if(map !== null) {
-            map.appendCorpusString(source, target);
             const suggestions = map.predict(source, target, 1);
             setSuggestion(suggestions[0]);
         }
-    }, [map, source, target]);
+    }, [map, memory, source, target]);
 
     return suggestion;
 }

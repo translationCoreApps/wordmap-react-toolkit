@@ -32,6 +32,7 @@ export function Suggestion({suggestion}) {
                         const source = alignment.source.getTokens().map((t, i) => {
                             return (
                                 <Word key={i}
+                                      position={t.position}
                                       occurrence={t.occurrence}
                                       occurrences={t.occurrences}>{t.text}</Word>
                             );
@@ -39,6 +40,8 @@ export function Suggestion({suggestion}) {
                         const target = alignment.target.getTokens().map((t, i) => {
                             return (
                                 <Word key={i}
+                                      suggested
+                                      position={t.position}
                                       occurrence={t.occurrence}
                                       occurrences={t.occurrences}>{t.text}</Word>
                             );

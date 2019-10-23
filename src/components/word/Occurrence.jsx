@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Tooltip} from "@material-ui/core";
 
 const styles = {
     top: 0,
@@ -16,13 +17,18 @@ const styles = {
  * @return {*}
  * @constructor
  */
-export function Occurrence({occurrence, occurrences, style}) {
+export function Occurrence({occurrence, occurrences, position, style}) {
     const computedStyles = {
         ...styles,
         ...style
     };
     if (occurrences > 1) {
-        return <sup style={computedStyles}>{occurrence}</sup>;
+        const positionLabel = position >= 0 ? `@ ${position}` : '';
+        return (
+            <Tooltip title={`${occurrence}/${occurrences} ${positionLabel}`}>
+                <sup style={computedStyles}>{occurrence}</sup>
+            </Tooltip>
+        );
     } else {
         return <></>;
     }

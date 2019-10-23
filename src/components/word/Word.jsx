@@ -77,7 +77,7 @@ const useStyles = makeStyles({
  * @constructor
  */
 export function Word(props) {
-    const {children, occurrence, occurrences, suggested, selected} = props;
+    const {children, occurrence, occurrences, position, suggested, selected} = props;
     const classes = useStyles(props);
 
     /**
@@ -118,7 +118,8 @@ export function Word(props) {
 
                 </span>
                 <Occurrence occurrence={occurrence}
-                            occurrences={occurrences}/>
+                            occurrences={occurrences}
+                            position={position}/>
             </div>
         </div>
     );
@@ -164,7 +165,12 @@ Word.propTypes = {
     /**
      * The language direction
      */
-    direction: PropTypes.oneOf(['ltr', 'rtl'])
+    direction: PropTypes.oneOf(['ltr', 'rtl']),
+
+    /**
+     * The position of this word within the sentence
+     */
+    position: PropTypes.number
 };
 
 Word.defaultProps = {
@@ -174,5 +180,6 @@ Word.defaultProps = {
     disabled: false,
     suggested: false,
     selected: false,
-    direction: 'ltr'
+    direction: 'ltr',
+    position: -1
 };
