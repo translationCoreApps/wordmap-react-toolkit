@@ -10,9 +10,7 @@ const useStyles = makeStyles({
         marginLeft: 5,
         width: 20,
         height: 20,
-        // verticalAlign: 'middle',
         color: '#646464',
-        // lineHeight: 'inherit',
         ...props.style
     })
 });
@@ -26,7 +24,10 @@ const useStyles = makeStyles({
  */
 export function Controls(props) {
     const [hover, setHover] = useState(false);
-    const classes = useStyles(props);
+    const classes = useStyles({
+        ...props,
+        hover
+    });
 
     function handleOver() {
         setHover(true);

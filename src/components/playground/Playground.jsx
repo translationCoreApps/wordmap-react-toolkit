@@ -10,7 +10,9 @@ import Paper from '@material-ui/core/Paper';
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import {ExpandMore} from "@material-ui/icons";
-
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -28,6 +30,13 @@ const useStyles = makeStyles(theme => ({
     },
     paper: {
         paddingTop: theme.spacing(1),
+    },
+    panel: {
+        paddingLeft: 0,
+        paddingRight: 0
+    },
+    settingsGroup: {
+        padding: theme.spacing(1)
     }
 }));
 
@@ -48,6 +57,11 @@ export function Playground({sourceText, targetText, memory: initialMemory}) {
     const [memory, setMemory] = useState(initialMemory);
     const suggestion = useSuggestion(source, target, memory);
     const [memoryExpanded, setMemoryExpanded] = useState(true);
+    const [suggestionsExpanded, setSuggestionsExpanded] = useState(true);
+    const [settings, setSettings] = useState({
+        displayPopover: true,
+        onlyShowMemory: false
+    });
 
     function onChangeSource(e) {
         setSource(e.target.value);
@@ -73,6 +87,14 @@ export function Playground({sourceText, targetText, memory: initialMemory}) {
     function handleToggleMemory() {
         setMemoryExpanded(!memoryExpanded);
     }
+
+    function handleToggleSuggestions() {
+        setSuggestionsExpanded(!suggestionsExpanded);
+    }
+
+    const handleSettingChange = name => event => {
+        setSettings({ ...settings, [name]: event.target.checked });
+    };
 
     return (
         <div>
@@ -119,18 +141,51 @@ export function Playground({sourceText, targetText, memory: initialMemory}) {
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
-            {/*<Paper style={{paddingTop: 1, paddingBottom: 1}}>*/}
-            {/*    */}
-            {/*</Paper>*/}
-
-            <Typography variant="h6">Predictions</Typography>
-            <Paper classes={{root: classes.paper}}>
-                {
-                    suggestion ? <Suggestion suggestion={suggestion}/> : <Placeholder/>
-                }
-            </Paper>
-
-
+            <ExpansionPanel
+                expanded={suggestionsExpanded}
+                onChange={handleToggleSuggestions}>
+                <ExpansionPanelSummary expandIcon={<ExpandMore/>}>
+                    <Typography variant="h6">Predictions</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails className={classes.panel}>
+                    <Grid container spacing={1} direction="column" alignItems="stretch">
+                        <Grid item>
+                            <FormGroup row className={classes.settingsGroup}>
+                                <FormControlLabel
+                                    control={
+                                        <Switch checked={settings.displayPopover}
+                                                onChange={handleSettingChange('displayPopover')}
+                                                value="displayPopover"
+                                        />
+                                    }
+                                    label="Enable popover"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={settings.onlyShowMemory}
+                                            onChange={handleSettingChange('onlyShowMemory')}
+                                            value="onlyShowMemory"
+                                        />
+                                    }
+                                    label="Show only alignment memory"
+                                />
+                            </FormGroup>
+                        </Grid>
+                        <Grid item>
+                            {
+                                suggestion ? (
+                                    <Suggestion
+                                        suggestion={suggestion}
+                                        withPopover={settings.displayPopover}
+                                        minConfidence={settings.onlyShowMemory ? 1 : 0}
+                                        />
+                                ) : <Placeholder/>
+                            }
+                        </Grid>
+                    </Grid>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
         </div>
     );
 }

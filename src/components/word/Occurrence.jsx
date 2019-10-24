@@ -17,15 +17,14 @@ const styles = {
  * @return {*}
  * @constructor
  */
-export function Occurrence({occurrence, occurrences, position, style}) {
+export function Occurrence({occurrence, occurrences, style}) {
     const computedStyles = {
         ...styles,
         ...style
     };
     if (occurrences > 1) {
-        const positionLabel = position >= 0 ? `@ ${position}` : '';
         return (
-            <Tooltip title={`${occurrence}/${occurrences} ${positionLabel}`}>
+            <Tooltip title={`${occurrence}/${occurrences}`}>
                 <sup style={computedStyles}>{occurrence}</sup>
             </Tooltip>
         );

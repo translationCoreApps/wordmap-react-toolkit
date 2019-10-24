@@ -16,7 +16,7 @@ export function Alignment(props) {
     const {targetWords, sourceWords} = props;
     const classes = useStyles(props);
     return (
-        <div className={classes.root}>
+        <div className={classes.root} {...props.rootProps}>
             <div className={classes.content}>
                 <div className={classes.top}>
                     <div className={classes.topRow}>
@@ -70,6 +70,10 @@ Alignment.propTypes = {
      * Custom styles applied to the root element.
      */
     styles: PropTypes.object,
+    /**
+     * Attributes applied to the root element
+     */
+    rootProps: PropTypes.object
 };
 Alignment.defaultProps = {
     suggested: false,
@@ -78,5 +82,6 @@ Alignment.defaultProps = {
     hoverTop: false,
     dropBottom: false,
     hoverBottom: false,
-    style: {}
+    style: {},
+    rootProps: {}
 };

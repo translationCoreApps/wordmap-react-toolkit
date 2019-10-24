@@ -37,6 +37,7 @@ export function AlignmentMemory({onAdd, onDelete, memory}) {
             {memory.map((data, i) => {
                 return (
                     <Chip
+                        key={i}
                         size="small"
                         variant="outlined"
                         color="primary"
