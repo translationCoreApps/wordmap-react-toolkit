@@ -10,6 +10,10 @@ import {Playground as WordmapPlayground} from './Playground';
 This is a sandbox to try out wordMAP on some real input.
 We've pre-populated some sentences to run predictions against.
 
+## Alignment Memory
+Throughout the translation process it becomes apparent that certain phrases always translate the same.
+This is most obvious for names, but can also include more complex phrases.
+
 Here are some directions:
 
 * Adding more alignment memory will improve the predictions.
@@ -24,3 +28,10 @@ Try it out!
         targetText="But concerning the dead that are raised, have you not read in the book of Moses, in the account about the bush, how God spoke to him, saying, ‘I am the God of Abraham and the God of Isaac and the God of Jacob’?"
         memory={[["Θεὸς", "the God"]]} />
 </Playground>
+
+## Corpus
+
+Providing a portion of text and it's equivalent translation to wordMAP allows
+for the statistical prediction of further alignments. 
+
+> TODO: provide corpus playground.
