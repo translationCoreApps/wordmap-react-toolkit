@@ -107,6 +107,7 @@ export function Suggestion({suggestion, withPopover, minConfidence}) {
                     }}
                     onClose={handlePopoverClose}
                     disableRestoreFocus
+                    disableScrollLock
                 >
                     {
                         predictionDetails ? (
