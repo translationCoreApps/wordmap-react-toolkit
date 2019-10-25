@@ -9,7 +9,7 @@
     "start": "docz dev",
     "docz:build": "docz build",
     "predeploy": "yarn docz:build",
-    "build": "babel ./src --out-dir ./dist -s inline",
+    "build": "tsc",
     "prepublishOnly": "rm -fr ./dist & yarn build"
   },
   "browserslist": [
