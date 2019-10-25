@@ -1,5 +1,6 @@
 import {makeStyles} from "@material-ui/styles";
 import memoizeOne from "memoize-one";
+import {AlignmentProps} from "./Alignment";
 
 const emptyTop = memoizeOne((props) => {
     return !props.sourceWords || props.sourceWords.length === 0;
@@ -29,7 +30,7 @@ const rowStyle = {
     position: 'relative'
 };
 
-function makeDropTopStyles({hoverTop, dropTop}) {
+function makeDropTopStyles({hoverTop, dropTop}: Partial<AlignmentProps>) {
     if (hoverTop && dropTop) {
         return {
             border: blueBorder
@@ -38,7 +39,7 @@ function makeDropTopStyles({hoverTop, dropTop}) {
     return {};
 }
 
-function makeDropBottomStyles({hoverBottom, dropBottom}) {
+function makeDropBottomStyles({hoverBottom, dropBottom}: Partial<AlignmentProps>) {
     if (hoverBottom && dropBottom) {
         return {
             border: blueBorder
@@ -48,7 +49,7 @@ function makeDropBottomStyles({hoverBottom, dropBottom}) {
 }
 
 export const useStyles = makeStyles({
-    root: props => ({
+    root: (props: AlignmentProps) => ({
         padding: '7px',
         backgroundColor: props.suggested ? '#bedac2' : '#DCDCDC',
         margin: '0px 10px 10px 0px',
@@ -61,7 +62,7 @@ export const useStyles = makeStyles({
         flexDirection: 'column',
         height: '100%'
     },
-    top: props => ({
+    top: (props: AlignmentProps) => ({
         transition: transitionSpeed,
         flexGrow: 1,
         width: '100%',
@@ -71,7 +72,7 @@ export const useStyles = makeStyles({
         marginBottom: '7px',
         ...makeDropTopStyles(props)
     }),
-    bottom: props => ({
+    bottom: (props: AlignmentProps) => ({
         transition: transitionSpeed,
         flexGrow: 1,
         width: '100%',
@@ -81,16 +82,20 @@ export const useStyles = makeStyles({
         boxSizing: 'border-box',
         ...makeDropBottomStyles(props)
     }),
-    topRow: props => ({
-        ...rowStyle,
+    topRow: (props: AlignmentProps) => ({
+        display: 'flex',
+        transition: transitionSpeed,
+        position: 'relative',
         top: props.dropTop ? '7px' : 0,
         left: props.dropTop ? '7px' : 0,
         opacity: props.hoverTop && props.dropTop ? '0.8' : 1
     }),
-    bottomRow: props => ({
-        ...rowStyle,
+    bottomRow: (props: AlignmentProps) => ({
+        display: 'flex',
+        transition: transitionSpeed,
+        position: 'relative',
         top: props.dropBottom ? '7px' : 0,
         left: props.dropBottom ? '7px' : 0,
-        opacity: props.hoverBottom && props.dropBottom? '0.8' : 1
+        opacity: props.hoverBottom && props.dropBottom ? '0.8' : 1
     })
 });

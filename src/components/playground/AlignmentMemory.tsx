@@ -1,9 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {makeStyles} from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import {MemoryButton} from "./MemoryButton";
 import {MemoryLabel} from "./MemoryLabel";
+
+interface AlignmentMemoryProps {
+    /**
+     * Called when an alignment memory is added.
+     */
+    onAdd: (source: string, target: string) => void;
+    /**
+     * Called when an alignment memory is deleted
+     */
+    onDelete: (index: number) => void;
+    /**
+     * The alignment memory already collected
+     */
+    memory: string[][];
+}
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -18,11 +32,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-
-export function AlignmentMemory({onAdd, onDelete, memory}) {
+export function AlignmentMemory({onAdd, onDelete, memory}: AlignmentMemoryProps) {
     const classes = useStyles();
 
-    function handleDelete(index) {
+    function handleDelete(index: number) {
         return () => {
             if (typeof onDelete === 'function') {
                 onDelete(index);
@@ -33,7 +46,7 @@ export function AlignmentMemory({onAdd, onDelete, memory}) {
     return (
         <div style={{margin: 10, display: "block"}}>
             <MemoryButton onClick={onAdd}/>
-            {memory.map((data, i) => {
+            {memory.map((data: string[], i: number) => {
                 return (
                     <Chip
                         key={i}
@@ -49,9 +62,3 @@ export function AlignmentMemory({onAdd, onDelete, memory}) {
         </div>
     );
 }
-
-AlignmentMemory.propTypes = {
-    memory: PropTypes.array.isRequired,
-    onAdd: PropTypes.func,
-    onDelete: PropTypes.func
-};

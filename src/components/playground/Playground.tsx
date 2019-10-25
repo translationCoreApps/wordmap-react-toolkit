@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent, SetStateAction} from 'react';
 import * as PropTypes from 'prop-types';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import TextField from "@material-ui/core/TextField";
@@ -13,7 +13,6 @@ import {ExpandMore} from "@material-ui/icons";
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
-import {ChangeEvent, SetStateAction} from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({
     group: {
@@ -28,18 +27,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-/**
- * Displays some helpful text to get the user started.
- * @constructor
- */
-function Placeholder() {
-    return (
-        <Typography
-            variant="h6"
-            display="block"
-            color="textSecondary"
-            align="center">Start typing to see suggestions...</Typography>
-    );
+interface PlaygroundProps {
+    /**
+     * The initial source text.
+     */
+    sourceText: string;
+    /**
+     * The initial target text.
+     */
+    targetText: string;
+    /**
+     * The initial alignment memory to use.
+     */
+    memory: string[][];
 }
 
 export function Playground({sourceText, targetText, memory: initialMemory = []} = {
@@ -50,7 +50,7 @@ export function Playground({sourceText, targetText, memory: initialMemory = []} 
     const classes = useStyles();
     const [source, setSource] = React.useState(sourceText);
     const [target, setTarget] = React.useState(targetText);
-    const [memory, setMemory] = React.useState<String[]>(initialMemory);
+    const [memory, setMemory] = React.useState<string[][]>(initialMemory);
     const suggestion = useSuggestion(source, target, memory);
     const [memoryExpanded, setMemoryExpanded] = React.useState(true);
     const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
@@ -67,11 +67,11 @@ export function Playground({sourceText, targetText, memory: initialMemory = []} 
         setTarget(e.target.value);
     }
 
-    function handleAddMemory(newMemory: string[]) {
+    function handleAddMemory(source: string, target: string) {
         setMemory([
             ...memory,
-            newMemory
-        ] as SetStateAction<Array<string>>);
+            [source, target]
+        ] as SetStateAction<string[][]>);
     }
 
     function handleDeleteMemory(index: number) {
@@ -174,7 +174,13 @@ export function Playground({sourceText, targetText, memory: initialMemory = []} 
                                         withPopover={settings.displayPopover}
                                         minConfidence={settings.onlyShowMemory ? 1 : 0}
                                     />
-                                ) : <Placeholder/>
+                                ) : (
+                                    <Typography
+                                        variant="h6"
+                                        display="block"
+                                        color="textSecondary"
+                                        align="center">Start typing to see suggestions...</Typography>
+                                )
                             }
                         </Grid>
                     </Grid>
@@ -184,13 +190,8 @@ export function Playground({sourceText, targetText, memory: initialMemory = []} 
     );
 }
 
-Playground.propTypes = {
-    sourceText: PropTypes.string,
-    targetText: PropTypes.string,
-    memory: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
-};
 Playground.defaultProps = {
     sourceText: "",
     targetText: "",
     memory: []
-};
+} as Partial<PlaygroundProps>;

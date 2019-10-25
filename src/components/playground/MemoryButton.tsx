@@ -1,57 +1,34 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import {makeStyles} from "@material-ui/core";
 import {Link} from "@material-ui/icons";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import {useStyles} from "./styles";
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        display: "flex",
-        flexDirection: "row"
-    },
-    textField: {
-        // marginTop: theme.spacing(1),
-        marginBottom: 0
-    },
-    helpText: {
-        color: "#888"
-    },
-    sourceInputOutline: {
-        borderRight: "none",
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0
-    },
-    sourceInputAdornmentEnd: {
-        position: "relative",
-        left: theme.spacing(1.5)
-    },
-    sourceInputRoot: {
-        paddingRight: 0
-    },
-    targetInputOutline: {
-        borderLeft: "none",
-        borderTopLeftRadius: 0,
-        borderBottomLeftRadius: 0
-    },
-    button: {
-        margin: theme.spacing(1),
-        marginBottom: 0
-    }
-}));
+export interface MemoryButtonProps {
+    /**
+     * Called when the add button is clicked
+     */
+    onClick: (source: string, target: string) => void;
+}
 
-export function MemoryButton({onClick}) {
+interface MemoryError {
+    source?: boolean;
+    target?: boolean;
+}
+
+export function MemoryButton({onClick}: MemoryButtonProps) {
     const classes = useStyles();
     const [target, setTarget] = useState("");
     const [source, setSource] = useState("");
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({} as MemoryError);
 
     function handleClick() {
         if(typeof onClick === 'function') {
             if(target !== "" && source !== "") {
-                onClick([source, target]);
+                onClick(source, target);
                 setSource("");
                 setTarget("");
                 setErrors({});
@@ -64,11 +41,11 @@ export function MemoryButton({onClick}) {
         }
     }
 
-    function handleChangeSource(e) {
+    function handleChangeSource(e: ChangeEvent<HTMLInputElement>) {
         setSource(e.target.value);
     }
 
-    function handleChangeTarget(e) {
+    function handleChangeTarget(e: ChangeEvent<HTMLInputElement>) {
         setTarget(e.target.value);
     }
 

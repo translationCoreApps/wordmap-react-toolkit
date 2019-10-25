@@ -15,7 +15,7 @@ export interface WordProps {
     /**
      * Called when canceling a suggested word.
      */
-    onCancel: (event: Event) => void;
+    onCancel: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
     /**
      * Indicates the word is selected
      */
@@ -74,7 +74,7 @@ export function Word(props: WordProps) {
      * @param e
      * @private
      */
-    function handleCancelClick(e: Event) {
+    function handleCancelClick(e: React.MouseEvent<SVGSVGElement, MouseEvent>) {
         if (typeof props.onCancel === 'function') {
             e.stopPropagation();
             props.onCancel(e);

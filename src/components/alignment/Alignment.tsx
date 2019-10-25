@@ -33,7 +33,7 @@ export interface AlignmentProps {
     /**
      * The language direction of the target words
      */
-    targetDirection: 'rtl' | 'ltr';
+    targetDirection?: 'rtl' | 'ltr';
     /**
      * Custom styles applied to the root element.
      */
@@ -47,44 +47,33 @@ export interface AlignmentProps {
 /**
  * Renders the alignment of source and target n-grams
  * */
-export function Alignment({
-                              targetWords,
-                              sourceWords,
-                              suggested = false,
-                              dropTop = false,
-                              hoverTop = false,
-                              dropBottom = false,
-                              hoverBottom = false,
-                              targetDirection = 'ltr',
-                              style = {},
-                              rootProps = {}
-                          }: AlignmentProps) {
-    const classes = useStyles({
-        targetWords,
-        sourceWords,
-        suggested,
-        dropTop,
-        hoverTop,
-        dropBottom,
-        hoverBottom,
-        targetDirection,
-        style,
-        rootProps
-    });
+export function Alignment(props: AlignmentProps) {
+    const classes = useStyles(props);
     return (
-        <div className={classes.root} {...rootProps}>
+        <div className={classes.root} {...props.rootProps}>
             <div className={classes.content}>
                 <div className={classes.top}>
                     <div className={classes.topRow}>
-                        {sourceWords}
+                        {props.sourceWords}
                     </div>
                 </div>
                 <div className={classes.bottom}>
                     <div className={classes.bottomRow}>
-                        {targetWords}
+                        {props.targetWords}
                     </div>
                 </div>
             </div>
         </div>
     );
 }
+
+Alignment.defaultProps ={
+    suggested: false,
+    dropTop: false,
+    hoverTop: false,
+    dropBottom: false,
+    hoverBottom: false,
+    style: {},
+    rootProps: {},
+    targetDirection: 'ltr'
+} as Partial<AlignmentProps>;
