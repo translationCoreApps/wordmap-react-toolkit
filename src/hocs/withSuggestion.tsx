@@ -1,6 +1,12 @@
 import React from "react";
 import {useSuggestion, useWordMAP} from "../core/hooks";
 
+interface WithSuggestionProps {
+    source: string;
+    target: string;
+    memory: string[][];
+}
+
 /**
  * Adds a suggestion to the wrapped component.
  * @param WrappedComponent
@@ -9,13 +15,17 @@ import {useSuggestion, useWordMAP} from "../core/hooks";
  * @param {array} memory
  * @returns {function(*): *}
  */
-export function withSuggestion(WrappedComponent, {source, target, memory}) {
-    return props => {
+export function withSuggestion(WrappedComponent: any, {source, target, memory}: WithSuggestionProps) {
+    return (props: object) => {
         const suggestion = useSuggestion(source, target, memory);
         return (
-            <WrappedComponent suggestion={suggestion}/>
+            <WrappedComponent suggestion={suggestion} {...props} />
         );
     };
+}
+
+interface withWordMAPProps {
+    memory: string[][];
 }
 
 /**
@@ -24,11 +34,11 @@ export function withSuggestion(WrappedComponent, {source, target, memory}) {
  * @param {array} memory
  * @returns {function(*): *}
  */
-export function withWordMAP(WrappedComponent, {memory}) {
-    return props => {
+export function withWordMAP(WrappedComponent: any, {memory}: withWordMAPProps) {
+    return (props: object) => {
         const map = useWordMAP(memory);
         return (
-            <WrappedComponent wordMAP={map}/>
+            <WrappedComponent wordMAP={map} {...props}/>
         );
     };
 }
