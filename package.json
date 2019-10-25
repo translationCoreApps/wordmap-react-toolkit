@@ -46,6 +46,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4",
     "wordmap": "^0.7.0-beta",
     "wordmap-lexer": "^0.3.5"
   },

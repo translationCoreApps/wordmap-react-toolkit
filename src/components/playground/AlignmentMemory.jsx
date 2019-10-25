@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {makeStyles} from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import {MemoryButton} from "./MemoryButton";
-import {Link} from "@material-ui/icons";
 import {MemoryLabel} from "./MemoryLabel";
 
 const useStyles = makeStyles(theme => ({

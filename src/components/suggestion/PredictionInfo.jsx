@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Paper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
 export function PredictionInfo({prediction}) {

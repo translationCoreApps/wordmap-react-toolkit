@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useSuggestion} from "../../utils/hooks";
+import {useSuggestion} from "../../core/hooks";
 
 /**
  * Injects a wordMAP suggestion into it's children

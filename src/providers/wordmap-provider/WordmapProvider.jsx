@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useWordMAP} from "../../utils/hooks";
+import {useWordMAP} from "../../core/hooks";
 
 /**
  * Injects wordMAP into it's children.

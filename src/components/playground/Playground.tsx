@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import {makeStyles} from '@material-ui/core/styles';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import {makeStyles, Theme} from '@material-ui/core/styles';
 import TextField from "@material-ui/core/TextField";
 import {Suggestion} from "../suggestion";
-import {useSuggestion} from "../..";
+import {useSuggestion} from "../../core/hooks";
 import {ExpansionPanel, FormGroup, Typography} from "@material-ui/core";
 import {AlignmentMemory} from "./AlignmentMemory";
 import Paper from '@material-ui/core/Paper';
@@ -13,11 +13,12 @@ import {ExpandMore} from "@material-ui/icons";
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
+import {ChangeEvent, SetStateAction} from "react";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
     container: {
         display: 'flex',
-        flexWrap: 'wrap',
+        // flexWrap: 'wrap',
     },
     group: {
         margin: theme.spacing(1)
@@ -50,35 +51,39 @@ function Placeholder() {
     );
 }
 
-export function Playground({sourceText, targetText, memory: initialMemory}) {
+export function Playground({sourceText, targetText, memory: initialMemory = []} = {
+    sourceText: String,
+    targetText: String,
+    memory: []
+}) {
     const classes = useStyles();
-    const [source, setSource] = useState(sourceText);
-    const [target, setTarget] = useState(targetText);
-    const [memory, setMemory] = useState(initialMemory);
+    const [source, setSource] = React.useState(sourceText);
+    const [target, setTarget] = React.useState(targetText);
+    const [memory, setMemory] = React.useState<String[]>(initialMemory);
     const suggestion = useSuggestion(source, target, memory);
-    const [memoryExpanded, setMemoryExpanded] = useState(true);
-    const [suggestionsExpanded, setSuggestionsExpanded] = useState(true);
-    const [settings, setSettings] = useState({
+    const [memoryExpanded, setMemoryExpanded] = React.useState(true);
+    const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
+    const [settings, setSettings] = React.useState({
         displayPopover: true,
         onlyShowMemory: false
     });
 
-    function onChangeSource(e) {
+    function onChangeSource(e: ChangeEvent<HTMLInputElement>) {
         setSource(e.target.value);
     }
 
-    function onChangeTarget(e) {
+    function onChangeTarget(e: ChangeEvent<HTMLInputElement>) {
         setTarget(e.target.value);
     }
 
-    function handleAddMemory(newMemory) {
+    function handleAddMemory(newMemory: string[]) {
         setMemory([
             ...memory,
             newMemory
-        ]);
+        ] as SetStateAction<Array<string>>);
     }
 
-    function handleDeleteMemory(index) {
+    function handleDeleteMemory(index: number) {
         const newMemory = [...memory];
         newMemory.splice(index, 1);
         setMemory(newMemory);
@@ -92,8 +97,8 @@ export function Playground({sourceText, targetText, memory: initialMemory}) {
         setSuggestionsExpanded(!suggestionsExpanded);
     }
 
-    const handleSettingChange = name => event => {
-        setSettings({ ...settings, [name]: event.target.checked });
+    const handleSettingChange = (name: string) => (event: ChangeEvent<HTMLInputElement>) => {
+        setSettings({...settings, [name]: event.target.checked});
     };
 
     return (
@@ -109,7 +114,6 @@ export function Playground({sourceText, targetText, memory: initialMemory}) {
                             shrink: true,
                         }}
                         onChange={onChangeSource}
-                        className={classes.textField}
                         value={source}
                         variant="outlined"
                     />
@@ -121,7 +125,6 @@ export function Playground({sourceText, targetText, memory: initialMemory}) {
                             shrink: true,
                         }}
                         onChange={onChangeTarget}
-                        className={classes.textField}
                         value={target}
                         variant="outlined"
                     />
@@ -179,7 +182,7 @@ export function Playground({sourceText, targetText, memory: initialMemory}) {
                                         suggestion={suggestion}
                                         withPopover={settings.displayPopover}
                                         minConfidence={settings.onlyShowMemory ? 1 : 0}
-                                        />
+                                    />
                                 ) : <Placeholder/>
                             }
                         </Grid>

@@ -1,5 +1,5 @@
 import React from "react";
-import {useSuggestion, useWordMAP} from "../utils/hooks";
+import {useSuggestion, useWordMAP} from "../core/hooks";
 
 /**
  * Adds a suggestion to the wrapped component.
