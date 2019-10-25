@@ -16,21 +16,8 @@ import Grid from "@material-ui/core/Grid";
 import {ChangeEvent, SetStateAction} from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({
-    container: {
-        display: 'flex',
-        // flexWrap: 'wrap',
-    },
     group: {
         margin: theme.spacing(1)
-    },
-    dense: {
-        marginTop: theme.spacing(2),
-    },
-    menu: {
-        width: 200,
-    },
-    paper: {
-        paddingTop: theme.spacing(1),
     },
     panel: {
         paddingLeft: 0,
@@ -41,6 +28,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
+/**
+ * Displays some helpful text to get the user started.
+ * @constructor
+ */
 function Placeholder() {
     return (
         <Typography

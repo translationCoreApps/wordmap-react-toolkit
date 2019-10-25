@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import {Occurrence} from './Occurrence';
 import {Controls} from './Controls';
 import {makeStyles} from "@material-ui/styles";
