@@ -1,10 +1,18 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import CancelIcon from '@material-ui/icons/Cancel';
 import {makeStyles} from "@material-ui/styles";
 
+export interface ControlsProps {
+    onCancel: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
+    style?: any;
+}
+
+interface ControlsStyleProps extends ControlsProps {
+    hover: boolean;
+}
+
 const useStyles = makeStyles({
-    icon: props => ({
+    icon: (props: ControlsStyleProps) => ({
         transition: '0.1s',
         opacity: props.hover ? 1: 0.5,
         marginLeft: 5,
@@ -22,7 +30,7 @@ const useStyles = makeStyles({
  * @return {*}
  * @constructor
  */
-export function Controls(props) {
+export function Controls(props: ControlsProps) {
     const [hover, setHover] = useState(false);
     const classes = useStyles({
         ...props,
@@ -46,10 +54,6 @@ export function Controls(props) {
 
 }
 
-Controls.propTypes = {
-    onCancel: PropTypes.func,
-    style: PropTypes.object
-};
 Controls.defaultProps = {
     style: {}
-};
+} as Partial<ControlsProps>;
