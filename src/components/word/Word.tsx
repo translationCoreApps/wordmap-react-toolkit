@@ -1,14 +1,13 @@
 import React from 'react';
-import * as PropTypes from 'prop-types';
 import {Occurrence} from './Occurrence';
 import {Controls} from './Controls';
 import {makeStyles} from "@material-ui/styles";
 
-function makeBorderKey({direction}) {
-    return direction === 'ltr' ? 'borderLeft' : 'borderRight';
+function makeBorderKey({direction}: WordProps) {
+    return direction as string === 'ltr' ? 'borderLeft' : 'borderRight';
 }
 
-function makeSuggestionStyles(props) {
+function makeSuggestionStyles(props: WordProps) {
     if (props.suggested) {
         return {
             [makeBorderKey(props)]: '5px solid #1b7729',
@@ -17,7 +16,7 @@ function makeSuggestionStyles(props) {
     return {};
 }
 
-function makeDisabledStyles(props) {
+function makeDisabledStyles(props: WordProps) {
     if (props.disabled) {
         return {
             [makeBorderKey(props)]: '5px solid #868686',
@@ -29,7 +28,7 @@ function makeDisabledStyles(props) {
     return {};
 }
 
-function makeSelectedStyles({selected}) {
+function makeSelectedStyles({selected}: WordProps) {
     if (selected) {
         return {
             backgroundColor: '#44C6FF'
@@ -44,7 +43,7 @@ function makeSelectedStyles({selected}) {
  * @return {object}
  */
 const useStyles = makeStyles({
-    root: props => ({
+    root: (props: WordProps) => ({
         [makeBorderKey(props)]: '5px solid #44C6FF',
         padding: '9px',
         backgroundColor: '#FFFFFF',
@@ -57,7 +56,7 @@ const useStyles = makeStyles({
         ...makeSelectedStyles(props),
         ...props.style
     }),
-    word: props => ({
+    word: (props: WordProps) => ({
         width: 'max-content',
         flexGrow: 2,
         color: props.selected ? 'white' : 'inherit',
@@ -70,13 +69,56 @@ const useStyles = makeStyles({
     }
 });
 
+interface WordProps {
+    /**
+     * Indicates the word is selected
+     */
+    selected: boolean;
+    /**
+     * Indicates the word is disabled
+     */
+    disabled: boolean;
+    /**
+     * Indicates the word is a suggestion
+     */
+    suggested: boolean;
+    /**
+     * Called when clicking on the word title
+     */
+    onClick: Function;
+    /**
+     * Called when canceling a suggested word.
+     */
+    onCancel: Function;
+    /**
+     * Custom styles applied to the root element
+     */
+    style: any;
+    /**
+     * This word instance's order of appearance within the sentence
+     */
+    occurrence: number;
+    /**
+     * How many times the word appears within the sentence
+     */
+    occurrences: number;
+    /**
+     * The actual word text
+     */
+    children: string;
+    /**
+     * The language direction
+     */
+    direction: 'ltr' | 'rtl';
+}
+
 /**
  * Renders a standard word.
  *
  * @param {object} props
  * @constructor
  */
-export function Word(props) {
+export function Word(props: WordProps) {
     const {children, occurrence, occurrences, suggested, selected} = props;
     const classes = useStyles(props);
 
@@ -86,7 +128,7 @@ export function Word(props) {
      * @param e
      * @private
      */
-    function handleClick(e) {
+    function handleClick(e: React.MouseEvent) {
         if (!props.disabled && typeof props.onClick === 'function') {
             e.stopPropagation();
             props.onClick(e);
@@ -98,7 +140,7 @@ export function Word(props) {
      * @param e
      * @private
      */
-    function handleCancelClick(e) {
+    function handleCancelClick(e: Event) {
         if (typeof props.onCancel === 'function') {
             e.stopPropagation();
             props.onCancel(e);
@@ -118,54 +160,11 @@ export function Word(props) {
 
                 </span>
                 <Occurrence occurrence={occurrence}
-                            occurrences={occurrences} />
+                            occurrences={occurrences}/>
             </div>
         </div>
     );
 }
-
-Word.propTypes = {
-    /**
-     * Indicates the word is selected
-     */
-    selected: PropTypes.bool,
-    /**
-     * Indicates the word is disabled
-     */
-    disabled: PropTypes.bool,
-    /**
-     * Indicates the word is a suggestion
-     */
-    suggested: PropTypes.bool,
-    /**
-     * Called when clicking on the word title
-     */
-    onClick: PropTypes.func,
-    /**
-     * Called when canceling a suggested word.
-     */
-    onCancel: PropTypes.func,
-    /**
-     * Custom styles applied to the root element
-     */
-    style: PropTypes.object,
-    /**
-     * This word instance's order of appearance within the sentence
-     */
-    occurrence: PropTypes.number,
-    /**
-     * How many times the word appears within the sentence
-     */
-    occurrences: PropTypes.number,
-    /**
-     * The actual word text
-     */
-    children: PropTypes.string.isRequired,
-    /**
-     * The language direction
-     */
-    direction: PropTypes.oneOf(['ltr', 'rtl']),
-};
 
 Word.defaultProps = {
     style: {},

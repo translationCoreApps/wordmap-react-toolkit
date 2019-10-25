@@ -1,5 +1,5 @@
 import {Link} from "@material-ui/icons";
-import * as React from "react";
+import React from "react";
 
 /**
  * Renders a label for a single alignment memory.

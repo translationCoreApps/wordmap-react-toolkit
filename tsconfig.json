@@ -11,6 +11,7 @@
     "noImplicitThis": true,
     "module": "es6",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "jsx": "react",
     "allowJs": true,
     "target": "es5"

@@ -5,43 +5,43 @@ export interface AlignmentProps {
     /**
      * Indicates the alignment contains a suggestion.
      */
-    suggested?: boolean,
+    suggested?: boolean;
     /**
      * Displays the top drop zone.
      */
-    dropTop?: boolean,
+    dropTop?: boolean;
     /**
      * Indicates something is hovering over the top drop zone.
      */
-    hoverTop?: boolean,
+    hoverTop?: boolean;
     /**
      * Displays the bottom drop zone
      */
-    dropBottom?: boolean,
+    dropBottom?: boolean;
     /**
      * Indicates something is hovering over the bottom drop zone.
      */
-    hoverBottom?: boolean,
+    hoverBottom?: boolean;
     /**
      * Words from the source sentence that have been aligned.
      */
-    sourceWords: Element[],
+    sourceWords: Element[];
     /**
      * Words from the target sentence that have been aligned.
      */
-    targetWords: Element[],
+    targetWords: Element[];
     /**
      * The language direction of the target words
      */
-    targetDirection?: 'rtl' | 'ltr',
+    targetDirection: 'rtl' | 'ltr';
     /**
      * Custom styles applied to the root element.
      */
-    style?: any,
+    style?: any;
     /**
      * Attributes applied to the root element
      */
-    rootProps?: any
+    rootProps?: any;
 }
 
 /**
