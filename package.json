@@ -1,6 +1,6 @@
 {
   "name": "wordmap-react-toolkit",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A React component library for the wordMAP prediction engine.",
   "main": "dist/index.js",
   "repository": {
