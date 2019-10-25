@@ -5,7 +5,7 @@ interface WordmapProviderProps {
     /**
      * Any React component
      */
-    children: ReactElement | ReactElement [];
+    children: JSX.Element | JSX.Element [];
     /**
      * Alignment memory
      */

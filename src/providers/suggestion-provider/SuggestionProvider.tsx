@@ -5,7 +5,7 @@ interface SuggestionProviderProps {
     /**
      * Any React component
      */
-    children: ReactElement | ReactElement[];
+    children: JSX.Element | JSX.Element[];
     /**
      * The source text
      */
