@@ -1,40 +1,40 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {Alignment} from '../alignment';
 import {Word} from "../word";
-import {makeStyles} from "@material-ui/core";
 import Popover from '@material-ui/core/Popover';
 import {PredictionInfo} from "./PredictionInfo";
+import {default as WordMapSuggestion} from "wordmap/dist/structures/Suggestion";
+import {useStyles} from "./styles";
 
-const useStyles = makeStyles(theme => ({
-    root: props => ({
-        display: 'flex',
-        flexWrap: 'wrap',
-        backgroundColor: '#ffffff',
-        padding: '0px 10px 10px',
-        overflowY: 'auto',
-        flexGrow: 2,
-        direction: props.sourceDirection,
-        alignContent: 'flex-start'
-    }),
-    popover: {
-        pointerEvents: 'none',
-    },
-    paper: {
-        padding: theme.spacing(1),
-    }
-}));
+export interface SuggestionProps {
+    /**
+     * A suggestion produced by wordMAP.
+     */
+    suggestion: WordMapSuggestion;
+    /**
+     * The language direction of the source text.
+     */
+    sourceDirection?: 'rtl' | 'ltr';
+    /**
+     * Enables displaying the prediction info popover.
+     */
+    withPopover: boolean;
+    /**
+     * The minimum confidence required for a prediction to be displayed.
+     */
+    minConfidence: number;
+}
 
 /**
  * Renders a grid of word/phrase alignments
  */
-export function Suggestion({suggestion, withPopover, minConfidence}) {
-    const classes = useStyles({suggestion});
-    const [anchorEl, setAnchorEl] = useState(null);
+export function Suggestion({suggestion, withPopover, minConfidence}: SuggestionProps) {
+    const classes = useStyles({suggestion} as SuggestionProps);
+    const [anchorEl, setAnchorEl] = useState(null as any);
     const [hoverIndex, setHoverIndex] = useState(-1);
 
-    const handlePopoverOpen = predictionKey => event => {
-        if(suggestion.predictions[predictionKey].confidence >= minConfidence) {
+    const handlePopoverOpen = (predictionKey: number) => (event: Event) => {
+        if (suggestion.getPredictions()[predictionKey].confidence >= minConfidence) {
             setHoverIndex(predictionKey);
             setAnchorEl(event.currentTarget);
         }
@@ -45,30 +45,29 @@ export function Suggestion({suggestion, withPopover, minConfidence}) {
         setHoverIndex(-1);
     };
 
-    const predictionDetails = hoverIndex >= 0 ? suggestion.predictions[hoverIndex] : null;
-    const open = Boolean(anchorEl) && withPopover;
-
-    if (suggestion && suggestion.predictions) {
+    if (suggestion) {
+        const predictionDetails = hoverIndex >= 0 ? suggestion.getPredictions()[hoverIndex] : null;
+        const open: boolean = Boolean(anchorEl) && withPopover;
         return (
             <div className={classes.root}>
                 {
-                    suggestion.predictions.map((p, key) => {
+                    suggestion.getPredictions().map((p, key) => {
                         const alignment = p.alignment;
-                        const source = alignment.source.getTokens().map((t, i) => {
+                        const source: JSX.Element[] = alignment.source.getTokens().map((t, i) => {
                             return (
                                 <Word key={i}
                                       occurrence={t.occurrence}
-                                      occurrences={t.occurrences}>{t.text}</Word>
+                                      occurrences={t.occurrences}>{t.toString()}</Word>
                             );
                         });
-                        let target = [];
-                        if(p.confidence >= minConfidence) {
+                        let target: JSX.Element[] = [];
+                        if (p.confidence >= minConfidence) {
                             target = alignment.target.getTokens().map((t, i) => {
                                 return (
                                     <Word key={i}
                                           suggested
                                           occurrence={t.occurrence}
-                                          occurrences={t.occurrences}>{t.text}</Word>
+                                          occurrences={t.occurrences}>{t.toString()}</Word>
                                 );
                             });
                         }
@@ -80,7 +79,7 @@ export function Suggestion({suggestion, withPopover, minConfidence}) {
                                     onMouseEnter: handlePopoverOpen(key),
                                     onMouseLeave: handlePopoverClose
                                 }}
-                                style={ hoverIndex === key && withPopover ? {
+                                style={hoverIndex === key && withPopover ? {
                                     backgroundColor: '#fff',
                                     border: 'solid 1px rgb(220, 220, 220)'
                                 } : {
@@ -121,27 +120,8 @@ export function Suggestion({suggestion, withPopover, minConfidence}) {
     return null;
 }
 
-Suggestion.propTypes = {
-    /**
-     * A suggestion produced by wordMAP
-     */
-    suggestion: PropTypes.object,
-    /**
-     * The language direction of the source text
-     */
-    sourceDirection: PropTypes.oneOf(['rtl', 'ltr']),
-    /**
-     * Enables displaying the prediction info popover
-     */
-    withPopover: PropTypes.bool,
-    /**
-     * The minimum confidence required for a prediction to be displayed
-     */
-    minConfidence: PropTypes.number
-};
-
 Suggestion.defaultProps = {
     sourceDirection: 'ltr',
     withPopover: true,
     minConfidence: 0
-};
+} as Partial<SuggestionProps>;

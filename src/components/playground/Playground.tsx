@@ -1,5 +1,4 @@
-import React, {ChangeEvent, SetStateAction} from 'react';
-import * as PropTypes from 'prop-types';
+import React, {ChangeEvent} from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import TextField from "@material-ui/core/TextField";
 import {Suggestion} from "../suggestion";
@@ -13,6 +12,7 @@ import {ExpandMore} from "@material-ui/icons";
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
+import {default as WordMapSuggestion} from "wordmap/dist/structures/Suggestion";
 
 const useStyles = makeStyles((theme: Theme) => ({
     group: {
@@ -50,7 +50,7 @@ export function Playground({sourceText, targetText, memory: initialMemory = []} 
     const classes = useStyles();
     const [source, setSource] = React.useState(sourceText);
     const [target, setTarget] = React.useState(targetText);
-    const [memory, setMemory] = React.useState<string[][]>(initialMemory);
+    const [memory, setMemory] = React.useState(initialMemory as string[][]);
     const suggestion = useSuggestion(source, target, memory);
     const [memoryExpanded, setMemoryExpanded] = React.useState(true);
     const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
@@ -71,7 +71,7 @@ export function Playground({sourceText, targetText, memory: initialMemory = []} 
         setMemory([
             ...memory,
             [source, target]
-        ] as SetStateAction<string[][]>);
+        ]);
     }
 
     function handleDeleteMemory(index: number) {

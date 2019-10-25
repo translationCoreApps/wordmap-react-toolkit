@@ -1,8 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Typography from "@material-ui/core/Typography";
+import Prediction from "wordmap/dist/structures/Prediction";
 
-export function PredictionInfo({prediction}) {
+interface PredictionInfoProps {
+    /**
+     * The prediction information to display
+     */
+    prediction: Prediction;
+}
+
+export function PredictionInfo({prediction}: PredictionInfoProps) {
     return (
         <>
             <Typography variant="h6">{prediction.key}</Typography>
@@ -10,9 +17,3 @@ export function PredictionInfo({prediction}) {
         </>
     );
 }
-PredictionInfo.propTypes = {
-    /**
-     * The prediction information to display
-     */
-    prediction: PropTypes.object.isRequired
-};

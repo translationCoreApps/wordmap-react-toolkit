@@ -25,11 +25,11 @@ export interface AlignmentProps {
     /**
      * Words from the source sentence that have been aligned.
      */
-    sourceWords: Element[];
+    sourceWords: JSX.Element[];
     /**
      * Words from the target sentence that have been aligned.
      */
-    targetWords: Element[];
+    targetWords: JSX.Element[];
     /**
      * The language direction of the target words
      */

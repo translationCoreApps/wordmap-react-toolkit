@@ -1,14 +1,16 @@
 import {useEffect, useState} from "react";
 import Lexer from "wordmap-lexer";
 import WordMap from "wordmap";
+import Suggestion from "wordmap/dist/structures/Suggestion";
+import Token from "wordmap-lexer/dist/Token";
 
 /**
  * Returns tokenized version of the text
  * @param text
  * @returns {Array}
  */
-export function useTokens(text) {
-    const [tokens, setTokens] = useState([]);
+export function useTokens(text: string): Token[] {
+    const [tokens, setTokens] = useState([] as Token[]);
     useEffect(() => {
         setTokens(Lexer.tokenize(text));
     }, [text]);
@@ -20,8 +22,8 @@ export function useTokens(text) {
  * @param memory - alignment memory to use
  * @returns {{}}
  */
-export function useWordMAP(memory=[]) {
-    const [map, setMap] = useState(null);
+export function useWordMAP(memory: string[][] = []): WordMap | null {
+    const [map, setMap] = useState(null as unknown);
 
     // create wordMAP
     useEffect(() => {
@@ -30,13 +32,13 @@ export function useWordMAP(memory=[]) {
 
     // update memory
     useEffect(() => {
-        if(map !== null) {
-            map.clearAlignmentMemory();
-            memory.map(alignment => map.appendAlignmentMemoryString(alignment[0], alignment[1]));
+        if (map !== null) {
+            (map as WordMap).clearAlignmentMemory();
+            memory.map(alignment => (map as WordMap).appendAlignmentMemoryString(alignment[0], alignment[1]));
         }
     }, [map, memory]);
 
-    return map;
+    return map as WordMap | null;
 }
 
 /**
@@ -46,17 +48,17 @@ export function useWordMAP(memory=[]) {
  * @param memory
  * @returns {{}}
  */
-export function useSuggestion(source, target, memory=[]) {
+export function useSuggestion(source: string, target: string, memory: string[][] = []): Suggestion | null {
     const map = useWordMAP(memory);
-    const [suggestion, setSuggestion] = useState(null);
+    const [suggestion, setSuggestion] = useState(null as Suggestion | null);
 
     // predict
     useEffect(() => {
-        if(map !== null) {
+        if (map !== null) {
             const suggestions = map.predict(source, target, 1);
             setSuggestion(suggestions[0]);
         }
     }, [map, memory, source, target]);
 
-    return suggestion;
+    return suggestion as Suggestion | null;
 }
