@@ -1,4 +1,7 @@
 # wordmap-react-toolkit
+
+[![npm version](https://badge.fury.io/js/wordmap-react-toolkit.svg)](https://badge.fury.io/js/wordmap-react-toolkit)
+
 A React toolkit for the wordMAP prediction engine. 
 
 ## Install
