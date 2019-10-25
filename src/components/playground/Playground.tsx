@@ -12,7 +12,7 @@ import {ExpandMore} from "@material-ui/icons";
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
-import {default as WordMapSuggestion} from "wordmap/dist/structures/Suggestion";
+import {Corpus} from "./Corpus";
 
 const useStyles = makeStyles((theme: Theme) => ({
     group: {
@@ -40,18 +40,19 @@ interface PlaygroundProps {
      * The initial alignment memory to use.
      */
     memory: string[][];
+    /**
+     * The initial corpus to use.
+     */
+    corpus: string[];
 }
 
-export function Playground({sourceText, targetText, memory: initialMemory = []} = {
-    sourceText: String,
-    targetText: String,
-    memory: []
-}) {
+export function Playground({sourceText, targetText, memory: initialMemory, corpus: initialCorpus}: PlaygroundProps) {
     const classes = useStyles();
     const [source, setSource] = React.useState(sourceText);
     const [target, setTarget] = React.useState(targetText);
     const [memory, setMemory] = React.useState(initialMemory as string[][]);
-    const suggestion = useSuggestion(source, target, memory);
+    const [corpus, setCorpus] = React.useState(initialCorpus as string[]);
+    const suggestion = useSuggestion(source, target, memory, corpus);
     const [memoryExpanded, setMemoryExpanded] = React.useState(true);
     const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
     const [settings, setSettings] = React.useState({
@@ -86,6 +87,10 @@ export function Playground({sourceText, targetText, memory: initialMemory = []} 
 
     function handleToggleSuggestions() {
         setSuggestionsExpanded(!suggestionsExpanded);
+    }
+
+    function handleCorpusChange(newCorpus: string[]) {
+        setCorpus(newCorpus);
     }
 
     const handleSettingChange = (name: string) => (event: ChangeEvent<HTMLInputElement>) => {
@@ -132,6 +137,22 @@ export function Playground({sourceText, targetText, memory: initialMemory = []} 
                         memory={memory}
                         onAdd={handleAddMemory}
                         onDelete={handleDeleteMemory}/>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+
+            <ExpansionPanel>
+                <ExpansionPanelSummary expandIcon={<ExpandMore/>}>
+                    <Typography variant="h6">Corpus</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <Grid container direction="column" alignItems="stretch">
+                        <Grid item>
+                            <Typography variant="caption">Enter matching lines of text below. The source and target fields must contain the same number of lines.</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Corpus corpus={corpus} onChange={handleCorpusChange} />
+                        </Grid>
+                    </Grid>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
@@ -193,5 +214,6 @@ export function Playground({sourceText, targetText, memory: initialMemory = []} 
 Playground.defaultProps = {
     sourceText: "",
     targetText: "",
-    memory: []
+    memory: [],
+    corpus: []
 } as Partial<PlaygroundProps>;

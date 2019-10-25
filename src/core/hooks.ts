@@ -20,15 +20,25 @@ export function useTokens(text: string): Token[] {
 /**
  * Returns a wordMAP instance
  * @param memory - alignment memory to use
+ * @param corpus
  * @returns {{}}
  */
-export function useWordMAP(memory: string[][] = []): WordMap | null {
+export function useWordMAP(memory: string[][] = [], corpus: string[] = []): WordMap | null {
     const [map, setMap] = useState(null as unknown);
 
     // create wordMAP
     useEffect(() => {
         setMap(new WordMap());
     }, []);
+
+    // rebuild engine with corpus
+    useEffect(() => {
+        if(corpus.length === 2) {
+            const newMap = new WordMap();
+            newMap.appendCorpusString(corpus[0], corpus[1]);
+            setMap(newMap);
+        }
+    }, [corpus]);
 
     // update memory
     useEffect(() => {
@@ -46,10 +56,11 @@ export function useWordMAP(memory: string[][] = []): WordMap | null {
  * @param source
  * @param target
  * @param memory
+ * @param corpus
  * @returns {{}}
  */
-export function useSuggestion(source: string, target: string, memory: string[][] = []): Suggestion | null {
-    const map = useWordMAP(memory);
+export function useSuggestion(source: string, target: string, memory: string[][] = [], corpus: string[] = []): Suggestion | null {
+    const map = useWordMAP(memory, corpus);
     const [suggestion, setSuggestion] = useState(null as Suggestion | null);
 
     // predict
