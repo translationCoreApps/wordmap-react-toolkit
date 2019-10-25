@@ -4,6 +4,7 @@
   "description": "A React component library for the wordMAP prediction engine.",
   "main": "dist/index.js",
   "repository": "git@github.com:translationCoreApps/wordmap-react-toolkit",
+  "homepage": "https://wordmap-react-toolkit.netlify.com",
   "license": "MIT",
   "scripts": {
     "start": "docz dev",
