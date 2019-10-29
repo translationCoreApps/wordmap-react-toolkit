@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from "@material-ui/core/Typography";
-import Prediction from "wordmap/dist/structures/Prediction";
+import {Prediction} from "wordmap/core";
 
 interface PredictionInfoProps {
     /**

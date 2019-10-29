@@ -9117,10 +9117,10 @@ wordmap-lexer@^0.3.5:
   dependencies:
     string-punctuation-tokenizer "0.9.4"
 
-wordmap@^0.7.0-beta:
-  version "0.7.0-beta"
-  resolved "https://registry.yarnpkg.com/wordmap/-/wordmap-0.7.0-beta.tgz#b2232ae161a805bae711e5904b622c4d3a07e7c5"
-  integrity sha512-Zs4N0DGRRPnvWMhHQ8UNtOctuQ/SRl7hFKEpBXGj5iMpGouBk5sRGn/Na0CkfZj0VQ7QfcIzT2mmolohW6g0Tg==
+wordmap@^0.7.0-beta.5:
+  version "0.7.0-beta.5"
+  resolved "https://registry.yarnpkg.com/wordmap/-/wordmap-0.7.0-beta.5.tgz#7d8f7bef43ad2d25f571f32a084ede9d3b7aadca"
+  integrity sha512-gJJs6bBLVHVjHjSDsBEmhXsCE4Z4YpyR1EnRcRmKHvNzHy5sT5zdcy7DcgPcwO5XBF8eGkz4byXC5SSE+mRM3g==
   dependencies:
     "@types/yargs" "^11.0.0"
     yargs "^11.0.0"

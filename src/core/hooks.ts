@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import Lexer from "wordmap-lexer";
 import WordMap from "wordmap";
-import Suggestion from "wordmap/dist/structures/Suggestion";
+import {Suggestion} from "wordmap/core";
 import Token from "wordmap-lexer/dist/Token";
 
 /**

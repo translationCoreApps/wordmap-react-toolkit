@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
+    "target": "es5",
+    "module": "es6",
+    "declaration": true,
     "outDir": "./dist",
+    "strict": true,
     "sourceMap": true,
     "strictNullChecks": true,
     "lib": [
@@ -9,12 +13,9 @@
     ],
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "module": "es6",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "jsx": "react",
-    "allowJs": true,
-    "target": "es5"
+    "jsx": "react"
   },
   "include": [
     "./src/**/*"

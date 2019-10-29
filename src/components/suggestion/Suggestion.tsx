@@ -3,7 +3,7 @@ import {Alignment} from '../alignment';
 import {Word} from "../word";
 import Popover from '@material-ui/core/Popover';
 import {PredictionInfo} from "./PredictionInfo";
-import {default as WordMapSuggestion} from "wordmap/dist/structures/Suggestion";
+import {Suggestion as WordMapSuggestion} from "wordmap/core";
 import {useStyles} from "./styles";
 
 export interface SuggestionProps {
