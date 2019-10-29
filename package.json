@@ -13,9 +13,10 @@
   "scripts": {
     "start": "docz dev",
     "docz:build": "docz build",
-    "predeploy": "yarn docz:build",
     "build": "tsc",
-    "prepublishOnly": "rm -fr ./dist & yarn build"
+    "predeploy": "yarn build && cp package.json dist/",
+    "deploy": "yarn publish dist",
+    "postpublish": "git tag v$npm_package_version && git push origin v$npm_package_version"
   },
   "browserslist": [
     ">0.2%",
@@ -30,7 +31,7 @@
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.5.0",
-    "wordmap": "^0.7.0-beta",
+    "wordmap": "^0.7.2",
     "wordmap-lexer": "^0.3.5"
   },
   "devDependencies": {
@@ -43,7 +44,7 @@
     "react-dom": "^16.10.2",
     "tslint": "^5.20.0",
     "typescript": "^3.6.4",
-    "wordmap": "^0.7.0-beta.5",
+    "wordmap": "^0.7.2",
     "wordmap-lexer": "^0.3.5"
   },
   "files": [
