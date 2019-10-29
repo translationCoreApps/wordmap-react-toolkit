@@ -1,6 +1,7 @@
 # wordmap-react-toolkit
 
 [![npm version](https://badge.fury.io/js/wordmap-react-toolkit.svg)](https://badge.fury.io/js/wordmap-react-toolkit)
+[![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
 
 A React toolkit for the wordMAP prediction engine. 
 

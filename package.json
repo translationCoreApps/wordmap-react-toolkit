@@ -13,8 +13,9 @@
   "scripts": {
     "start": "docz dev",
     "docz:build": "docz build",
+    "prebuild": "rm -rf dist/",
     "build": "tsc",
-    "predeploy": "yarn build && cp package.json dist/",
+    "predeploy": "yarn build && cp {package.json, README.md} dist/",
     "deploy": "yarn publish dist"
   },
   "browserslist": [
