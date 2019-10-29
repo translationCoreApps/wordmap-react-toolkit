@@ -52,6 +52,7 @@ export function useWordMAP(memory: string[][] = [], corpus: string[] = []): Word
 }
 
 /**
+ * @deprecated use {@link useSuggestions} instead
  * Returns a suggested alignment between two sentences.
  * @param source
  * @param target
@@ -72,4 +73,28 @@ export function useSuggestion(source: string, target: string, memory: string[][]
     }, [map, memory, source, target]);
 
     return suggestion as Suggestion | null;
+}
+
+/**
+ * Returns a suggested alignment between two sentences.
+ * @param source
+ * @param target
+ * @param memory
+ * @param corpus
+ * @param maxSuggestions
+ * @returns {{}}
+ */
+export function useSuggestions(source: string, target: string, memory: string[][] = [], corpus: string[] = [], maxSuggestions = 1): Suggestion[] {
+    const map = useWordMAP(memory, corpus);
+    const [suggestions, setSuggestions] = useState([] as Suggestion[]);
+
+    // predict
+    useEffect(() => {
+        if (map !== null) {
+            const suggestions = map.predict(source, target, maxSuggestions);
+            setSuggestions(suggestions);
+        }
+    }, [map, memory, source, target]);
+
+    return suggestions;
 }

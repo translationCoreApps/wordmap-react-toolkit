@@ -52,17 +52,20 @@ export const useStyles = makeStyles({
         ...makeSuggestionStyles(props),
         ...makeDisabledStyles(props),
         ...makeSelectedStyles(props),
-        ...props.style
+        ...props.style,
+        ...(props.styles ? props.styles.root : {})
     }),
     word: (props: WordProps) => ({
         width: 'max-content',
         flexGrow: 2,
         color: props.selected ? 'white' : 'inherit',
-        cursor: (!props.disabled && typeof props.onClick === 'function') ? 'pointer' : 'inherit'
+        cursor: (!props.disabled && typeof props.onClick === 'function') ? 'pointer' : 'inherit',
+        ...(props.styles ? props.styles.word : {})
     }),
-    content: {
+    content: (props: WordProps) => ({
         flex: 1,
         display: 'flex',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+        ...(props.styles ? props.styles.content : {})
+    })
 });

@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import TextField from "@material-ui/core/TextField";
-import {useSuggestion} from "../../core/hooks";
+import {useSuggestions} from "../../core/hooks";
 import {ExpansionPanel, FormGroup, Typography} from "@material-ui/core";
 import {AlignmentMemory} from "./AlignmentMemory";
 import Paper from '@material-ui/core/Paper';
@@ -43,7 +43,7 @@ export function Playground({sourceText, targetText, memory: initialMemory, corpu
     const [target, setTarget] = React.useState(targetText);
     const [memory, setMemory] = React.useState(initialMemory as string[][]);
     const [corpus, setCorpus] = React.useState(initialCorpus as string[]);
-    const suggestion = useSuggestion(source, target, memory, corpus);
+    const suggestions = useSuggestions(source, target, memory, corpus, 3);
     const [memoryExpanded, setMemoryExpanded] = React.useState(true);
 
     function onChangeSource(e: ChangeEvent<HTMLInputElement>) {
@@ -134,7 +134,7 @@ export function Playground({sourceText, targetText, memory: initialMemory, corpu
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
-            <SuggestionPanel suggestion={suggestion}/>
+            <SuggestionPanel suggestions={suggestions}/>
         </div>
     );
 }

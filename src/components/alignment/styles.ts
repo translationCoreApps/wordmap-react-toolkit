@@ -55,7 +55,8 @@ export const useStyles = makeStyles({
         margin: '0px 10px 10px 0px',
         minWidth: emptyAlignment(props) ? `calc(${defaultAlignmentWidth}/2)` : defaultAlignmentWidth,
         flexGrow: largeAlignment(props) ? 1 : 0,
-        ...props.style
+        ...props.style,
+        ...(props.styles ? props.styles.root : {})
     }),
     content: {
         display: 'flex',
@@ -70,7 +71,8 @@ export const useStyles = makeStyles({
         border: emptyTop(props) || props.dropTop ? whiteBorder : clearBorder,
         boxSizing: 'border-box',
         marginBottom: '7px',
-        ...makeDropTopStyles(props)
+        ...makeDropTopStyles(props),
+        ...(props.styles ? props.styles.top : {})
     }),
     bottom: (props: AlignmentProps) => ({
         transition: transitionSpeed,
@@ -80,7 +82,8 @@ export const useStyles = makeStyles({
         minHeight: '45px',
         border: emptyBottom(props) || props.dropBottom ? whiteBorder : clearBorder,
         boxSizing: 'border-box',
-        ...makeDropBottomStyles(props)
+        ...makeDropBottomStyles(props),
+        ...(props.styles ? props.styles.bottom : {})
     }),
     topRow: (props: AlignmentProps) => ({
         display: 'flex',
@@ -88,7 +91,8 @@ export const useStyles = makeStyles({
         position: 'relative',
         top: props.dropTop ? '7px' : 0,
         left: props.dropTop ? '7px' : 0,
-        opacity: props.hoverTop && props.dropTop ? '0.8' : 1
+        opacity: props.hoverTop && props.dropTop ? '0.8' : 1,
+        ...(props.styles ? props.styles.topRow : {})
     }),
     bottomRow: (props: AlignmentProps) => ({
         display: 'flex',
@@ -96,6 +100,7 @@ export const useStyles = makeStyles({
         position: 'relative',
         top: props.dropBottom ? '7px' : 0,
         left: props.dropBottom ? '7px' : 0,
-        opacity: props.hoverBottom && props.dropBottom ? '0.8' : 1
+        opacity: props.hoverBottom && props.dropBottom ? '0.8' : 1,
+        ...(props.styles ? props.styles.bottomRow : {})
     })
 });

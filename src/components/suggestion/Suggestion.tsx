@@ -6,6 +6,21 @@ import {PredictionInfo} from "./PredictionInfo";
 import {Suggestion as WordMapSuggestion} from "wordmap/core";
 import {useStyles} from "./styles";
 
+export interface ClassesProps {
+    /**
+     * Custom styles for the root element
+     */
+    root?: object;
+    /**
+     * Custom styles for the word element
+     */
+    word?: object;
+    /**
+     * Custom styles for the alignment element
+     */
+    alignment?: object;
+}
+
 export interface SuggestionProps {
     /**
      * A suggestion produced by wordMAP.
@@ -23,13 +38,25 @@ export interface SuggestionProps {
      * The minimum confidence required for a prediction to be displayed.
      */
     minConfidence: number;
+    /**
+     * Allows overriding the root styles
+     */
+    styles?: object;
+    /**
+     * Overrides the {@link Word} props
+     */
+    WordProps?: object;
+    /**
+     * Overrides the {@link Alignment} props
+     */
+    AlignmentProps?: object;
 }
 
 /**
  * Renders a grid of word/phrase alignments
  */
-export function Suggestion({suggestion, withPopover, minConfidence}: SuggestionProps) {
-    const classes = useStyles({suggestion} as SuggestionProps);
+export function Suggestion({suggestion, withPopover, minConfidence, styles, WordProps = {}, AlignmentProps = {}}: SuggestionProps) {
+    const classes = useStyles({suggestion, styles} as SuggestionProps);
     const [anchorEl, setAnchorEl] = useState(null as any);
     const [hoverIndex, setHoverIndex] = useState(-1);
 
@@ -57,7 +84,9 @@ export function Suggestion({suggestion, withPopover, minConfidence}: SuggestionP
                             return (
                                 <Word key={i}
                                       occurrence={t.occurrence}
-                                      occurrences={t.occurrences}>{t.toString()}</Word>
+                                      occurrences={t.occurrences}
+                                      {...WordProps}
+                                >{t.toString()}</Word>
                             );
                         });
                         let target: JSX.Element[] = [];
@@ -67,7 +96,9 @@ export function Suggestion({suggestion, withPopover, minConfidence}: SuggestionP
                                     <Word key={i}
                                           suggested
                                           occurrence={t.occurrence}
-                                          occurrences={t.occurrences}>{t.toString()}</Word>
+                                          occurrences={t.occurrences}
+                                          {...WordProps}
+                                    >{t.toString()}</Word>
                                 );
                             });
                         }
@@ -87,6 +118,7 @@ export function Suggestion({suggestion, withPopover, minConfidence}: SuggestionP
                                 }}
                                 targetWords={target}
                                 sourceWords={source}
+                                {...AlignmentProps}
                             />
                         );
                     })

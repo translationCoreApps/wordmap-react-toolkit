@@ -29,9 +29,36 @@ export interface WordProps {
      */
     suggested?: boolean;
     /**
+     *
+     * @deprecated use *styles* instead.
      * Custom styles applied to the root element
      */
     style?: any;
+    /**
+     * Styles applied to sections of the component
+     */
+    styles?: {
+        /**
+         * Overrides styles for the root element
+         */
+        root?: object,
+        /**
+         * Overrides styles for the content element
+         */
+        content?: object,
+        /**
+         * Overrides styles for word's text element
+         */
+        word?: object,
+        /**
+         * Overrides styles for the controls displayed on suggested words
+         */
+        controls?: object,
+        /**
+         * Overrides styles for the number of occurrences
+         */
+        occurrence?: object
+    };
     /**
      * This word instance's order of appearance within the sentence
      */
@@ -81,6 +108,11 @@ export function Word(props: WordProps) {
         }
     }
 
+    const combinedStyles = {
+        ...(selected ? {color: 'white'} : {}),
+        ...(props.styles ? props.styles.controls: {})
+    };
+
     return (
         <div style={{flex: 1}}>
             <div className={classes.root}>
@@ -89,12 +121,14 @@ export function Word(props: WordProps) {
                     {children}
                   </span>
                     {suggested ? (
-                        <Controls style={selected ? {color: 'white'} : null} onCancel={handleCancelClick}/>
+                        <Controls style={combinedStyles} onCancel={handleCancelClick}/>
                     ) : null}
 
                 </span>
                 <Occurrence occurrence={occurrence}
-                            occurrences={occurrences}/>
+                            occurrences={occurrences}
+                            style={ props.styles ? props.styles.occurrence : null}
+                />
             </div>
         </div>
     );

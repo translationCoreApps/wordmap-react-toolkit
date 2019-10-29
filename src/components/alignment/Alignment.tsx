@@ -35,9 +35,35 @@ export interface AlignmentProps {
      */
     targetDirection?: 'rtl' | 'ltr';
     /**
+     * @deprecated use *styles* instead.
      * Custom styles applied to the root element.
      */
     style?: any;
+    /**
+     * Styles applied to sections of the component
+     */
+    styles?: {
+        /**
+         * The root element
+         */
+        root?: object,
+        /**
+         * The top element
+         */
+        top?: object,
+        /**
+         * The bottom element
+         */
+        bottom?: object,
+        /**
+         * The top row of words
+         */
+        topRow?: object,
+        /**
+         * The bottom row of words
+         */
+        bottomRow?: object
+    };
     /**
      * Attributes applied to the root element
      */
