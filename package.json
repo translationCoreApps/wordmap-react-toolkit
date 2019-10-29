@@ -1,6 +1,6 @@
 {
   "name": "wordmap-react-toolkit",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A React component library for the wordMAP prediction engine.",
   "main": "index.js",
   "types": "index.d.ts",
@@ -15,8 +15,9 @@
     "docz:build": "docz build",
     "prebuild": "rm -rf dist/",
     "build": "tsc",
-    "predeploy": "yarn build && cp {package.json, README.md} dist/",
-    "deploy": "yarn publish dist"
+    "predeploy": "yarn build && cp package.json dist/ && cp README.md dist/",
+    "deploy": "yarn publish dist",
+    "postpublish": "git tag v$npm_package_version && git push origin v$npm_package_version"
   },
   "browserslist": [
     ">0.2%",
