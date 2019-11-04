@@ -18,6 +18,9 @@ import Switch from "@material-ui/core/Switch";
 const useStyles = makeStyles((theme: Theme) => ({
     group: {
         margin: theme.spacing(1)
+    },
+    settingsGroup: {
+        padding: theme.spacing(1)
     }
 }));
 
