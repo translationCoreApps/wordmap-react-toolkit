@@ -31,6 +31,10 @@ export interface SuggestionProps {
      */
     sourceDirection?: 'rtl' | 'ltr';
     /**
+     * The language direction of the target text.
+     */
+    targetDirection?: 'rtl' | 'ltr';
+    /**
      * Enables displaying the prediction info popover.
      */
     withPopover: boolean;
@@ -55,8 +59,8 @@ export interface SuggestionProps {
 /**
  * Renders a grid of word/phrase alignments
  */
-export function Suggestion({suggestion, withPopover, minConfidence, styles, WordProps = {}, AlignmentProps = {}}: SuggestionProps) {
-    const classes = useStyles({suggestion, styles} as SuggestionProps);
+export function Suggestion({suggestion, withPopover, minConfidence, styles, WordProps, AlignmentProps, sourceDirection, targetDirection}: SuggestionProps) {
+    const classes = useStyles({sourceDirection, styles} as SuggestionProps);
     const [anchorEl, setAnchorEl] = useState(null as any);
     const [hoverIndex, setHoverIndex] = useState(-1);
 
@@ -118,6 +122,7 @@ export function Suggestion({suggestion, withPopover, minConfidence, styles, Word
                                 }}
                                 targetWords={target}
                                 sourceWords={source}
+                                targetDirection={targetDirection}
                                 {...AlignmentProps}
                             />
                         );
@@ -154,6 +159,10 @@ export function Suggestion({suggestion, withPopover, minConfidence, styles, Word
 
 Suggestion.defaultProps = {
     sourceDirection: 'ltr',
+    targetDirection: 'ltr',
     withPopover: true,
-    minConfidence: 0
+    minConfidence: 0,
+    styles: {},
+    WordProps: {},
+    AlignmentProps: {}
 } as Partial<SuggestionProps>;

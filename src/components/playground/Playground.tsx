@@ -11,6 +11,7 @@ import {ExpandMore} from "@material-ui/icons";
 import Grid from "@material-ui/core/Grid";
 import {Corpus} from "./Corpus";
 import {SuggestionPanel} from "./SuggestionPanel";
+import {getTextDirection} from "./util";
 
 const useStyles = makeStyles((theme: Theme) => ({
     group: {
@@ -45,13 +46,17 @@ export function Playground({sourceText, targetText, memory: initialMemory, corpu
     const [corpus, setCorpus] = React.useState(initialCorpus as string[]);
     const suggestions = useSuggestions(source, target, memory, corpus, 3);
     const [memoryExpanded, setMemoryExpanded] = React.useState(true);
+    const [sourceDirection, setSourceDirection] = React.useState(getTextDirection(sourceText));
+    const [targetDirection, setTargetDirection] = React.useState(getTextDirection(targetText));
 
     function onChangeSource(e: ChangeEvent<HTMLInputElement>) {
         setSource(e.target.value);
+        setSourceDirection(getTextDirection(e.target.value));
     }
 
     function onChangeTarget(e: ChangeEvent<HTMLInputElement>) {
         setTarget(e.target.value);
+        setTargetDirection(getTextDirection(e.target.value));
     }
 
     function handleAddMemory(source: string, target: string) {
@@ -125,16 +130,19 @@ export function Playground({sourceText, targetText, memory: initialMemory, corpu
                 <ExpansionPanelDetails>
                     <Grid container direction="column" alignItems="stretch">
                         <Grid item>
-                            <Typography variant="caption">Enter matching lines of text below. The source and target fields must contain the same number of lines.</Typography>
+                            <Typography variant="caption">Enter matching lines of text below. The source and target
+                                fields must contain the same number of lines.</Typography>
                         </Grid>
                         <Grid item>
-                            <Corpus corpus={corpus} onChange={handleCorpusChange} />
+                            <Corpus corpus={corpus} onChange={handleCorpusChange}/>
                         </Grid>
                     </Grid>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
-            <SuggestionPanel suggestions={suggestions}/>
+            <SuggestionPanel suggestions={suggestions}
+                             sourceDirection={sourceDirection}
+                             targetDirection={targetDirection}/>
         </div>
     );
 }

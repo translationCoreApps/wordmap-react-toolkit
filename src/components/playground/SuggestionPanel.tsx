@@ -21,9 +21,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface SuggestionPanelProps {
     suggestions: WordmapSuggestion[];
+    sourceDirection?: 'rtl' | 'ltr';
+    targetDirection?: 'rtl' | 'ltr';
 }
 
-export function SuggestionPanel({suggestions = []}: SuggestionPanelProps) {
+export function SuggestionPanel({suggestions = [], sourceDirection, targetDirection}: SuggestionPanelProps) {
     const classes = useStyles();
     const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
     const [settings, setSettings] = React.useState({
@@ -127,7 +129,7 @@ export function SuggestionPanel({suggestions = []}: SuggestionPanelProps) {
                                             <Typography
                                                 variant="h6"
                                                 display="block"
-                                                color="textPrimary">Suggestion #{i+1}</Typography>
+                                                color="textPrimary">Suggestion #{i + 1}</Typography>
                                             <Typography
                                                 variant="caption"
                                                 display="block"
@@ -138,6 +140,8 @@ export function SuggestionPanel({suggestions = []}: SuggestionPanelProps) {
                                             withPopover={settings.displayPopover}
                                             minConfidence={settings.onlyShowMemory ? 1 : 0}
                                             WordProps={WordProps}
+                                            sourceDirection={sourceDirection}
+                                            targetDirection={targetDirection}
                                             AlignmentProps={AlignmentProps}
                                         />
                                     </>
@@ -156,3 +160,8 @@ export function SuggestionPanel({suggestions = []}: SuggestionPanelProps) {
         </ExpansionPanel>
     );
 }
+
+SuggestionPanel.defaultProps = {
+    sourceDirection: 'ltr',
+    targetDirection: 'ltr'
+};
