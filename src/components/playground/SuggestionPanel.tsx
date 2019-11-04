@@ -30,7 +30,6 @@ export function SuggestionPanel({suggestions = [], sourceDirection, targetDirect
     const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
     const [settings, setSettings] = React.useState({
         displayPopover: true,
-        onlyShowMemory: false,
         condensed: true
     });
 
@@ -101,16 +100,6 @@ export function SuggestionPanel({suggestions = [], sourceDirection, targetDirect
                             <FormControlLabel
                                 control={
                                     <Switch
-                                        checked={settings.onlyShowMemory}
-                                        onChange={handleSettingChange('onlyShowMemory')}
-                                        value="onlyShowMemory"
-                                    />
-                                }
-                                label="Hide low scores"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Switch
                                         checked={settings.condensed}
                                         onChange={handleSettingChange('condensed')}
                                         value="condensed"
@@ -138,7 +127,6 @@ export function SuggestionPanel({suggestions = [], sourceDirection, targetDirect
                                         <Suggestion
                                             suggestion={s}
                                             withPopover={settings.displayPopover}
-                                            minConfidence={settings.onlyShowMemory ? 1 : 0}
                                             WordProps={WordProps}
                                             sourceDirection={sourceDirection}
                                             targetDirection={targetDirection}

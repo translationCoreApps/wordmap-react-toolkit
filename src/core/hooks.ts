@@ -33,7 +33,7 @@ export function useWordMAP(memory: string[][] = [], corpus: string[] = []): Word
 
     // rebuild engine with corpus
     useEffect(() => {
-        if(corpus.length === 2) {
+        if (corpus.length === 2) {
             const newMap = new WordMap();
             newMap.appendCorpusString(corpus[0], corpus[1]);
             setMap(newMap);
@@ -82,19 +82,20 @@ export function useSuggestion(source: string, target: string, memory: string[][]
  * @param memory
  * @param corpus
  * @param maxSuggestions
+ * @param excludeCorpus
  * @returns {{}}
  */
-export function useSuggestions(source: string, target: string, memory: string[][] = [], corpus: string[] = [], maxSuggestions = 1): Suggestion[] {
+export function useSuggestions(source: string, target: string, memory: string[][] = [], corpus: string[] = [], maxSuggestions = 1, excludeCorpus: boolean = false): Suggestion[] {
     const map = useWordMAP(memory, corpus);
     const [suggestions, setSuggestions] = useState([] as Suggestion[]);
 
     // predict
     useEffect(() => {
         if (map !== null) {
-            const suggestions = map.predict(source, target, maxSuggestions);
+            const suggestions = map.predict(source, target, maxSuggestions, excludeCorpus);
             setSuggestions(suggestions);
         }
-    }, [map, memory, source, target]);
+    }, [map, memory, source, target, excludeCorpus]);
 
     return suggestions;
 }

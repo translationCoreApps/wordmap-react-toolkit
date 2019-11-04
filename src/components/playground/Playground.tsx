@@ -12,6 +12,8 @@ import Grid from "@material-ui/core/Grid";
 import {Corpus} from "./Corpus";
 import {SuggestionPanel} from "./SuggestionPanel";
 import {getTextDirection} from "../../core/string";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 
 const useStyles = makeStyles((theme: Theme) => ({
     group: {
@@ -44,10 +46,15 @@ export function Playground({sourceText, targetText, memory: initialMemory, corpu
     const [target, setTarget] = React.useState(targetText);
     const [memory, setMemory] = React.useState(initialMemory as string[][]);
     const [corpus, setCorpus] = React.useState(initialCorpus as string[]);
-    const suggestions = useSuggestions(source, target, memory, corpus, 3);
+    const [enableCorpus, setEnableCorpus] = React.useState(true);
+    const suggestions = useSuggestions(source, target, memory, corpus, 3, !enableCorpus);
     const [memoryExpanded, setMemoryExpanded] = React.useState(true);
     const [sourceDirection, setSourceDirection] = React.useState(getTextDirection(sourceText));
     const [targetDirection, setTargetDirection] = React.useState(getTextDirection(targetText));
+
+    function handleToggleCorpus() {
+        setEnableCorpus(!enableCorpus);
+    }
 
     function onChangeSource(e: ChangeEvent<HTMLInputElement>) {
         setSource(e.target.value);
@@ -123,7 +130,22 @@ export function Playground({sourceText, targetText, memory: initialMemory, corpu
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
-            <ExpansionPanel>
+            <Grid container spacing={1} direction="column" alignItems="stretch">
+                <Grid item>
+                    <FormGroup row className={classes.settingsGroup}>
+                        <FormControlLabel
+                            control={
+                                <Switch checked={enableCorpus}
+                                        onChange={handleToggleCorpus}
+                                />
+                            }
+                            label="Enable Corpus"
+                        />
+                    </FormGroup>
+                </Grid>
+            </Grid>
+
+            <ExpansionPanel disabled={!enableCorpus}>
                 <ExpansionPanelSummary expandIcon={<ExpandMore/>}>
                     <Typography variant="h6">Corpus</Typography>
                 </ExpansionPanelSummary>
@@ -141,6 +163,7 @@ export function Playground({sourceText, targetText, memory: initialMemory, corpu
             </ExpansionPanel>
 
             <SuggestionPanel suggestions={suggestions}
+
                              sourceDirection={sourceDirection}
                              targetDirection={targetDirection}/>
         </div>
