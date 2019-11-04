@@ -20,3 +20,16 @@ Suggest an alignment between `Guten Tag Ihnen` and `Good day to you`.
         <Suggestion/>
     </SuggestionProvider>
 </Playground>
+
+## RTL Support
+
+Suggestions can be oriented based on the text direction. 
+
+> NOTE: For controlling the target text direction see **Alignment**.
+
+<Playground>
+    <SuggestionProvider source="Guten Tag Ihnen"
+                        target="Good day to you">
+        <Suggestion sourceDirection="rtl"/>
+    </SuggestionProvider>
+</Playground>

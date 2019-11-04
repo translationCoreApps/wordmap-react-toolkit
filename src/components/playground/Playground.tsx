@@ -11,7 +11,7 @@ import {ExpandMore} from "@material-ui/icons";
 import Grid from "@material-ui/core/Grid";
 import {Corpus} from "./Corpus";
 import {SuggestionPanel} from "./SuggestionPanel";
-import {getTextDirection} from "./util";
+import {getTextDirection} from "../../core/string";
 
 const useStyles = makeStyles((theme: Theme) => ({
     group: {

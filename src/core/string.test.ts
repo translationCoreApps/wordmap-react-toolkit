@@ -1,4 +1,4 @@
-import {getTextDirection} from "./util";
+import {getTextDirection} from "./string";
 
 describe("Playground#getTextDirection", () => {
     it("returns rtl", () => {

@@ -82,7 +82,20 @@ An alignment with a suggestion.
 <Playground>
     <Alignment style={{maxWidth: 300}}
         suggested
-        sourceWords={[<Word>Hello</Word>, <Word>World</Word>]}
+        sourceWords={[<Word>Hello</Word>, <Word>world</Word>]}
         targetWords={[<Word suggested>Some-one-word-equivalent</Word>]}
+    />
+</Playground>
+
+## RTL Support
+
+Alignments can be oriented based on the text direction. 
+
+<Playground>
+    <Alignment style={{maxWidth: 300}}
+        suggested
+        targetDirection="rtl"
+        sourceWords={[<Word>Hi</Word>]}
+        targetWords={[<Word suggested>Hello</Word>, <Word suggested>world</Word>]}
     />
 </Playground>

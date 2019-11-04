@@ -6,28 +6,13 @@ import {PredictionInfo} from "./PredictionInfo";
 import {Suggestion as WordMapSuggestion} from "wordmap/core";
 import {useStyles} from "./styles";
 
-export interface ClassesProps {
-    /**
-     * Custom styles for the root element
-     */
-    root?: object;
-    /**
-     * Custom styles for the word element
-     */
-    word?: object;
-    /**
-     * Custom styles for the alignment element
-     */
-    alignment?: object;
-}
-
 export interface SuggestionProps {
     /**
      * A suggestion produced by wordMAP.
      */
     suggestion: WordMapSuggestion;
     /**
-     * The language direction of the source text.
+     * The language direction of the source text. This gets passed down to the {@link Alignment}.
      */
     sourceDirection?: 'rtl' | 'ltr';
     /**
@@ -36,6 +21,7 @@ export interface SuggestionProps {
     targetDirection?: 'rtl' | 'ltr';
     /**
      * Enables displaying the prediction info popover.
+     * @deprecated: use `AlignmentProps#RootProps` to manually add `onMouseEnter` and `onMouseLeave` handlers.
      */
     withPopover: boolean;
     /**
@@ -160,7 +146,7 @@ export function Suggestion({suggestion, withPopover, minConfidence, styles, Word
 Suggestion.defaultProps = {
     sourceDirection: 'ltr',
     targetDirection: 'ltr',
-    withPopover: true,
+    withPopover: false,
     minConfidence: 0,
     styles: {},
     WordProps: {},
