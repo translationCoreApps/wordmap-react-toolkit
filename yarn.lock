@@ -10545,10 +10545,10 @@ wordmap-lexer@^0.3.5:
   dependencies:
     string-punctuation-tokenizer "0.9.4"
 
-wordmap@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/wordmap/-/wordmap-0.7.3.tgz#983a12119dd141be9506de0c49bbb45ee194d64c"
-  integrity sha512-oOvmew+TwO3/TR9T4o5bWvYZ9CYOlBJY3DoVzQ6W0z3SXwCx6yzr6oDvfoJAsBS2JYYyGQHmB+jyli13If9Vdw==
+wordmap@^0.7.5:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/wordmap/-/wordmap-0.7.5.tgz#8cb8f34129f40aa823ce326fb410a691ade3c370"
+  integrity sha512-HV/IsrBIGlsJxcpBrZEWSrT2EPgO3ZcBzCNkhukP1xMA5tcmKqHN61qk7tV7vP6V+dY+eIi1Q/qVMRdNZWtp0A==
   dependencies:
     "@types/yargs" "^11.0.0"
     yargs "^11.0.0"

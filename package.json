@@ -33,7 +33,7 @@
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.5.0",
-    "wordmap": "^0.7.2",
+    "wordmap": "^0.7.5",
     "wordmap-lexer": "^0.3.5"
   },
   "devDependencies": {
@@ -49,7 +49,7 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.4",
-    "wordmap": "^0.7.3",
+    "wordmap": "^0.7.5",
     "wordmap-lexer": "^0.3.5"
   },
   "files": [
