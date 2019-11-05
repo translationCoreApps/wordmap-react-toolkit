@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingLeft: 0,
         paddingRight: 0
     },
-    settingsGroup: {
+    text: {
         padding: theme.spacing(1)
     }
 }));
@@ -87,7 +87,11 @@ export function SuggestionPanel({suggestions = [], sourceDirection, targetDirect
             <ExpansionPanelDetails className={classes.panel}>
                 <Grid container spacing={1} direction="column" alignItems="stretch">
                     <Grid item>
-                        <FormGroup row className={classes.settingsGroup}>
+                        <Typography className={classes.text}>Here are the top suggestions. In most cases just the first suggestion will be used, but multiple suggestions are shown here
+                        to illustrate variations as the confidence decreases.</Typography>
+                    </Grid>
+                    <Grid item>
+                        <FormGroup row className={classes.text}>
                             <FormControlLabel
                                 control={
                                     <Switch checked={settings.displayPopover}
