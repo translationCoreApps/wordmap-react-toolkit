@@ -29,7 +29,7 @@ export function SuggestionPanel({suggestions = [], sourceDirection, targetDirect
     const classes = useStyles();
     const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
     const [settings, setSettings] = React.useState({
-        displayPopover: true,
+        displayPopover: false,
         condensed: true
     });
 
