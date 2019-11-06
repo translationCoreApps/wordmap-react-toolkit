@@ -49,7 +49,7 @@ export function Playground({sourceText, targetText, memory: initialMemory, corpu
     const [target, setTarget] = React.useState(targetText);
     const [memory, setMemory] = React.useState(initialMemory as string[][]);
     const [corpus, setCorpus] = React.useState(initialCorpus as string[]);
-    const [enableCorpus, setEnableCorpus] = React.useState(false);
+    const [enableCorpus, setEnableCorpus] = React.useState(initialCorpus.length > 0);
     const suggestions = useSuggestions(source, target, memory, corpus, 3, !enableCorpus, {forceOccurrenceOrder: true});
     const [memoryExpanded, setMemoryExpanded] = React.useState(true);
     const [sourceDirection, setSourceDirection] = React.useState(getTextDirection(sourceText));
