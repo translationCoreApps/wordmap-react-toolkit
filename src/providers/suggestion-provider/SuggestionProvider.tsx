@@ -1,5 +1,5 @@
 import React, {DetailedReactHTMLElement, HTMLAttributes, ReactElement} from 'react';
-import {useSuggestion} from "../../core/hooks";
+import {useSuggestions} from "../../core/hooks";
 
 interface SuggestionProviderProps {
     /**
@@ -30,10 +30,10 @@ interface SuggestionProviderProps {
  * @constructor
  */
 export function SuggestionProvider({children, source, target, memory}: SuggestionProviderProps) {
-    const suggestion = useSuggestion(source, target, memory);
+    const suggestions = useSuggestions(source, target, memory, [], 1, false, {});
     return React.Children.map(children, child => {
         return React.cloneElement(child, {
-            suggestion
+            suggestion: suggestions[0]
         } as HTMLAttributes<HTMLElement>);
     });
 }

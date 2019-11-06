@@ -1,10 +1,11 @@
 import React from "react";
-import {useSuggestion, useWordMAP} from "../core/hooks";
+import {useSuggestions, useWordMAP} from "../core/hooks";
 
 interface WithSuggestionProps {
     source: string;
     target: string;
     memory: string[][];
+    corpus?: string[];
 }
 
 /**
@@ -13,11 +14,12 @@ interface WithSuggestionProps {
  * @param {string} source
  * @param {string} target
  * @param {array} memory
+ * @param corpus
  * @returns {function(*): *}
  */
-export function withSuggestion(WrappedComponent: any, {source, target, memory}: WithSuggestionProps) {
+export function withSuggestion(WrappedComponent: any, {source, target, memory, corpus = []}: WithSuggestionProps) {
     return (props: object) => {
-        const suggestion = useSuggestion(source, target, memory);
+        const suggestion = useSuggestions(source, target, memory, corpus as string[], 1, false, {});
         return (
             <WrappedComponent suggestion={suggestion} {...props} />
         );

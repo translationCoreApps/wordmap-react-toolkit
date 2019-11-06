@@ -3,6 +3,7 @@ import Lexer from "wordmap-lexer";
 import WordMap from "wordmap";
 import {Suggestion} from "wordmap/core";
 import Token from "wordmap-lexer/dist/Token";
+import {WordMapProps} from "wordmap/core/WordMap";
 
 /**
  * Returns tokenized version of the text
@@ -20,21 +21,22 @@ export function useTokens(text: string): Token[] {
 /**
  * Returns a wordMAP instance
  * @param memory - alignment memory to use
- * @param corpus
+ * @param corpus - corpus to use
+ * @param config - configuration to be passed to the wordMAP.
  * @returns {{}}
  */
-export function useWordMAP(memory: string[][] = [], corpus: string[] = []): WordMap | null {
+export function useWordMAP(memory: string[][] = [], corpus: string[] = [], config: WordMapProps = {}): WordMap | null {
     const [map, setMap] = useState(null as unknown);
 
     // create wordMAP
     useEffect(() => {
-        setMap(new WordMap());
+        setMap(new WordMap(config));
     }, []);
 
     // rebuild engine with corpus
     useEffect(() => {
         if (corpus.length === 2) {
-            const newMap = new WordMap();
+            const newMap = new WordMap(config);
             newMap.appendCorpusString(corpus[0], corpus[1]);
             setMap(newMap);
         }
@@ -77,16 +79,17 @@ export function useSuggestion(source: string, target: string, memory: string[][]
 
 /**
  * Returns a suggested alignment between two sentences.
- * @param source
- * @param target
- * @param memory
+ * @param source the source sentence
+ * @param target the target sentence to align with the source.
+ * @param memory alignment memory
  * @param corpus
- * @param maxSuggestions
- * @param excludeCorpus
+ * @param maxSuggestions the maximum number of suggestions to generate.
+ * @param excludeCorpus excludes everything except for the alignment memory in suggestion output.
+ * @param config configuration to pass to wordMAP
  * @returns {{}}
  */
-export function useSuggestions(source: string, target: string, memory: string[][] = [], corpus: string[] = [], maxSuggestions = 1, excludeCorpus: boolean = false): Suggestion[] {
-    const map = useWordMAP(memory, corpus);
+export function useSuggestions(source: string, target: string, memory: string[][] = [], corpus: string[] = [], maxSuggestions = 1, excludeCorpus: boolean = false, config: WordMapProps): Suggestion[] {
+    const map = useWordMAP(memory, corpus, config);
     const [suggestions, setSuggestions] = useState([] as Suggestion[]);
 
     // predict

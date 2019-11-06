@@ -23,9 +23,10 @@ export interface SuggestionPanelProps {
     suggestions: WordmapSuggestion[];
     sourceDirection?: 'rtl' | 'ltr';
     targetDirection?: 'rtl' | 'ltr';
+    controls?: Element | Element[];
 }
 
-export function SuggestionPanel({suggestions = [], sourceDirection, targetDirection}: SuggestionPanelProps) {
+export function SuggestionPanel({suggestions = [], sourceDirection, targetDirection, controls = []}: SuggestionPanelProps) {
     const classes = useStyles();
     const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
     const [settings, setSettings] = React.useState({
@@ -87,8 +88,9 @@ export function SuggestionPanel({suggestions = [], sourceDirection, targetDirect
             <ExpansionPanelDetails className={classes.panel}>
                 <Grid container spacing={1} direction="column" alignItems="stretch">
                     <Grid item>
-                        <Typography className={classes.text}>Here are the top suggestions. In most cases just the first suggestion will be used, but multiple suggestions are shown here
-                        to illustrate variations as the confidence decreases.</Typography>
+                        <Typography className={classes.text}>Here are the top suggestions. In most cases just the first
+                            suggestion will be used, but multiple suggestions are shown here
+                            to illustrate variations as the confidence decreases.</Typography>
                     </Grid>
                     <Grid item>
                         <FormGroup row className={classes.text}>
@@ -111,6 +113,7 @@ export function SuggestionPanel({suggestions = [], sourceDirection, targetDirect
                                 }
                                 label="Condensed view"
                             />
+                            {controls}
                         </FormGroup>
                     </Grid>
                     <Grid item>
